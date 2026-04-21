@@ -1,5 +1,703 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<title>Redirecting to Home/</title>
-<meta http-equiv="refresh" content="0; URL=https://aishit-dua.netlify.app/">
-<link rel="canonical" href="https://aishit-dua.netlify.app/">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aishit Dua</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0c0c0b;
+    --bg2: #141412;
+    --bg3: #1c1c19;
+    --text: #e8e6df;
+    --muted: #7a7870;
+    --accent: #c8b97a;
+    --accent2: #7a9cb8;
+    --border: rgba(255,255,255,0.07);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(12,12,11,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  section { padding: 7rem 3rem; max-width: 1100px; margin: 0 auto; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 10rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    padding: 0.75rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-ghost {
+    padding: 0.75rem 2rem;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* EXPERIENCE */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .exp-meta { padding-top: 0.25rem; }
+
+  .exp-company {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-period {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-location {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .exp-role {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .exp-bullets li {
+    display: flex;
+    gap: 1rem;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .highlight { color: var(--text); }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .skill-group {
+    background: var(--bg);
+    padding: 2rem;
+  }
+
+  .skill-group-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    background: var(--bg3);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .project-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .project-card:hover { background: var(--bg2); }
+
+  .project-index {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .project-name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .project-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stack-tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* CONTACT */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-heading em { font-style: italic; color: var(--accent); }
+
+  .contact-text {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .contact-link:hover { border-color: rgba(200,185,122,0.3); color: var(--text); }
+
+  .contact-link-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    min-width: 70px;
+  }
+
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-text { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    #hero { padding: 8rem 1.5rem 4rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 1rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-stats { gap: 2rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">AD</div>
+  <ul class="nav-links">
+    <li><a href="#experience">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div style="padding: 0 3rem;">
+  <section id="hero">
+    <div class="hero-eyebrow">Backend Engineer · Bengaluru</div>
+    <h1 class="hero-name">Aishit <em>Dua</em></h1>
+    <p class="hero-title">Security, Scale & Distributed Systems</p>
+    <p class="hero-desc">5+ years building high-throughput, security-critical systems. Fraud detection engines, distributed authorization frameworks, and data pipelines handling millions of daily transactions at Branch International and Apple.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div>
+        <div class="stat-num">~40%</div>
+        <div class="stat-label">Account takeover reduction</div>
+      </div>
+      <div>
+        <div class="stat-num">50M+</div>
+        <div class="stat-label">Daily records processed</div>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in touch</a>
+      <a href="#experience" class="btn-ghost">View work</a>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-header fade-in">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-company">Branch International</div>
+        <div class="exp-period">Sep 2023 – Present</div>
+        <div class="exp-location">Bengaluru, IN</div>
+      </div>
+      <div>
+        <div class="exp-role">Backend Engineer</div>
+        <ul class="exp-bullets">
+          <li>Engineered a <span class="highlight">New Device Login system</span> with device fingerprinting and token rotation — reduced account takeovers <span class="highlight">~40%</span> across 1M+ active users, driving ~$500/week in fraud loss reduction.</li>
+          <li>Architected a configurable <span class="highlight">Fraud Detection Framework</span> with rule-engine + real-time scoring across 4 signal feeds; cut false-positive rate <span class="highlight">25%</span>.</li>
+          <li>Delivered a full-stack <span class="highlight">RBAC system</span> consolidating 12 permission models; reduced access-request resolution from 3 days to <span class="highlight">4 hours</span>.</li>
+          <li>Built a <span class="highlight">Maker-Checker approval framework</span> enforced across 13 critical admin workflows; adopted by 3 additional teams within 6 months.</li>
+          <li>Built end-to-end <span class="highlight">PII Tag Governance system</span> masking 41 recurring fields with RBI audit compliance and Slack alerting.</li>
+          <li>Prevented ~3k unauthorized debit transactions/week via Post-No-Debit enforcement across Nigeria wallet flows.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-company">Apple</div>
+        <div class="exp-period">May 2021 – Aug 2023</div>
+        <div class="exp-location">Hyderabad, IN · Contractor</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Development Engineer</div>
+        <ul class="exp-bullets">
+          <li>Built automated <span class="highlight">data-quality monitoring pipeline</span> for Maps Data Engineering — cut validation time <span class="highlight">487%</span> across 50M+ daily records.</li>
+          <li>Designed a relevance-ranking feature for data attributes; increased downstream team throughput <span class="highlight">50%</span> and improved Maps POI accuracy.</li>
+          <li>Lifted SLA compliance from 91% to <span class="highlight">98.5%</span> via automation scripts in the ingestion toolchain, reducing manual pipeline interventions ~60%.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-company">Stride.AI</div>
+        <div class="exp-period">May – Dec 2020</div>
+        <div class="exp-location">Remote · Intern</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Engineer Intern</div>
+        <ul class="exp-bullets">
+          <li>ML table-extraction pipeline across ~5k files with +20% efficiency; Node.js data-mining tool at 50k records/day; Python ETL cutting runtime from 90 to 40 min.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-header fade-in">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <div class="skill-group-label">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">Ruby</span>
+          <span class="tag">Python</span>
+          <span class="tag">Scala</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">C++</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Infrastructure</div>
+        <div class="skill-tags">
+          <span class="tag">AWS</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Redis</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">Snowflake</span>
+          <span class="tag">Docker</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Frameworks</div>
+        <div class="skill-tags">
+          <span class="tag">Ruby on Rails</span>
+          <span class="tag">Express.js</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">CI/CD</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Expertise</div>
+        <div class="skill-tags">
+          <span class="tag">System Design</span>
+          <span class="tag">Distributed Systems</span>
+          <span class="tag">Auth & Security</span>
+          <span class="tag">RBAC</span>
+          <span class="tag">PII Masking</span>
+          <span class="tag">API Design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid fade-in">
+      <div class="project-card">
+        <div class="project-index">P — 01</div>
+        <div class="project-name">News Event Extraction Engine</div>
+        <p class="project-desc">Clustered 50k articles into 12–15 categories with 90%+ event-detection precision. Sub-second retrieval on 100k+ PostgreSQL records.</p>
+        <div class="project-stack">
+          <span class="stack-tag">spaCy</span>
+          <span class="stack-tag">DBSCAN</span>
+          <span class="stack-tag">TF-IDF</span>
+          <span class="stack-tag">PostgreSQL</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-index">P — 02</div>
+        <div class="project-name">Movie Recommender System</div>
+        <p class="project-desc">RBM collaborative filter on 1.2M IMDB records. RMSE reduced from 1.12 to 0.87. REST API at under 200ms p99 handling ~1k concurrent requests.</p>
+        <div class="project-stack">
+          <span class="stack-tag">RBM</span>
+          <span class="stack-tag">TensorFlow</span>
+          <span class="stack-tag">Keras</span>
+          <span class="stack-tag">REST API</span>
+        </div>
+      </div>
+      <div class="project-card" style="border: 1px dashed rgba(200,185,122,0.2); background: var(--bg2);">
+        <div class="project-index" style="color: var(--muted);">P — 03</div>
+        <div class="project-name" style="color: var(--muted); font-style: italic;">RBAC Visualizer</div>
+        <p class="project-desc" style="color: #4a4843;">Define roles, resources, and permissions interactively. Live access enforcement via a FastAPI backend. Coming soon.</p>
+        <div class="project-stack">
+          <span class="stack-tag" style="border-color: rgba(200,185,122,0.15); color: #4a4843;">FastAPI</span>
+          <span class="stack-tag" style="border-color: rgba(200,185,122,0.15); color: #4a4843;">PostgreSQL</span>
+          <span class="stack-tag" style="border-color: rgba(200,185,122,0.15); color: #4a4843;">React</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-inner fade-in">
+      <div>
+        <h2 class="contact-heading">Let's build something <em>serious.</em></h2>
+        <p class="contact-text">Open to senior backend, security, or distributed systems roles. Particularly interested in fintech, infrastructure, or anything with real fraud/auth complexity.</p>
+        <a href="mailto:aish1804@gmail.com" class="btn-primary" style="display: inline-block;">aish1804@gmail.com</a>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:aish1804@gmail.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          aish1804@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/aishit-dua" class="contact-link" target="_blank">
+          <span class="contact-link-label">LinkedIn</span>
+          linkedin.com/in/aishit-dua
+        </a>
+        <a href="https://github.com/aishitdua" class="contact-link" target="_blank">
+          <span class="contact-link-label">GitHub</span>
+          github.com/aishitdua
+        </a>
+        <div class="contact-link" style="cursor: default;">
+          <span class="contact-link-label">Phone</span>
+          +91-9149301947
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <span class="footer-text">Aishit Dua · Bengaluru, IN</span>
+  <span class="footer-text">IIIT Nagpur · B.Tech CS · 2021</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
