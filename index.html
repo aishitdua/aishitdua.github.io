@@ -276,8 +276,8 @@
   }
 
   .exp-bullets li {
-    display: flex;
-    gap: 1rem;
+    position: relative;
+    padding-left: 1.5rem;
     font-size: 13px;
     color: var(--text);
     line-height: 1.6;
@@ -286,8 +286,9 @@
   .exp-bullets li::before {
     content: '→';
     color: var(--accent);
-    flex-shrink: 0;
-    margin-top: 1px;
+    position: absolute;
+    left: 0;
+    top: 1px;
   }
 
   .highlight { color: var(--text); font-weight: 500; }
