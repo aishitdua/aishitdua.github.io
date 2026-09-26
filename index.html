@@ -2,1144 +2,563 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aishit Dua — Backend Engineer</title>
-<meta name="description" content="Backend engineer building security-critical, high-throughput systems. Fraud detection, authorization frameworks, and data pipelines at Branch International and Apple.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230c0c0b'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='Georgia,serif' fill='%23c8b97a'>AD</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Aishit Dua</title>
+<meta name="description" content="Aishit Dua, senior data and backend engineer in Bengaluru. Warehouses, pipelines, query layers, and authorization platforms at WizCommerce, Branch International, and Apple Maps.">
+<meta property="og:title" content="Aishit Dua · Senior Data & Backend Engineer">
+<meta property="og:description" content="Warehouses, pipelines, query layers, and authorization platforms. 5 years across B2B commerce, fintech, and Apple Maps.">
+<meta property="og:image" content="https://aishitdua.github.io/ghlake.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232b44e0'/><circle cx='30' cy='50' r='9' fill='white'/><circle cx='70' cy='30' r='9' fill='white'/><circle cx='70' cy='70' r='9' fill='white'/><path d='M38 46 62 33M38 54 62 67' stroke='white' stroke-width='6'/></svg>">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #0a0a09;
-    --bg2: #131311;
-    --bg3: #1c1c19;
-    --text: #e8e6df;
-    --muted: #807e75;
-    --dim: #4a4843;
-    --accent: #c8b97a;
-    --accent-bright: #e8d896;
-    --accent2: #7a9cb8;
-    --green: #6fa86f;
-    --border: rgba(255,255,255,0.07);
-    --border-bright: rgba(200,185,122,0.25);
-    --font-display: 'Fraunces', Georgia, serif;
-    --font-mono: 'DM Mono', monospace;
-    --max: 1180px;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 1.7;
-    min-height: 100vh;
-    overflow-x: hidden;
-    background-image:
-      radial-gradient(800px 600px at 15% -5%, rgba(200,185,122,0.08), transparent 60%),
-      radial-gradient(700px 500px at 85% 25%, rgba(122,156,184,0.05), transparent 60%),
-      radial-gradient(900px 700px at 50% 110%, rgba(200,185,122,0.05), transparent 65%);
-    background-attachment: fixed;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-    background-size: 60px 60px;
-    z-index: 0;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-  }
-
-  ::selection { background: var(--accent); color: var(--bg); }
-
-  a { color: inherit; text-decoration: none; }
-
-  /* SCROLL PROGRESS */
-  .scroll-progress {
-    position: fixed;
-    top: 0; left: 0;
-    height: 2px;
-    width: 0;
-    background: linear-gradient(90deg, var(--accent), var(--accent-bright));
-    z-index: 200;
-    transition: width 0.05s linear;
-    box-shadow: 0 0 12px rgba(200,185,122,0.5);
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.1rem 3rem;
-    background: rgba(10,10,9,0.6);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border-bottom: 1px solid var(--border);
-    transition: padding 0.3s ease, background 0.3s ease;
-  }
-  nav.scrolled { padding: 0.85rem 3rem; background: rgba(10,10,9,0.85); }
-
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .nav-logo-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 10px var(--green);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.25rem;
-    list-style: none;
-    align-items: center;
-  }
-
-  .nav-links a {
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    transition: color 0.2s;
-    position: relative;
-  }
-  .nav-links a:hover { color: var(--text); }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--accent);
-    transition: width 0.25s ease;
-  }
-  .nav-links a:hover::after { width: 100%; }
-
-  .nav-cta {
-    padding: 0.55rem 1.1rem;
-    border: 1px solid var(--border-bright);
-    color: var(--accent);
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: background 0.2s, color 0.2s;
-  }
-  .nav-cta:hover { background: var(--accent); color: var(--bg); }
-  .nav-cta::after { display: none; }
-
-  section { padding: 7rem 3rem; max-width: var(--max); margin: 0 auto; position: relative; z-index: 1; }
-
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 9rem;
-    padding-bottom: 6rem;
-    max-width: var(--max);
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: rgba(111,168,111,0.05);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 2rem;
-    width: fit-content;
-  }
-  .status-pill .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 8px var(--green);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  .status-pill strong { color: var(--text); font-weight: 400; }
-
-  .hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 32px;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  .hero-name {
-    font-family: var(--font-display);
-    font-size: clamp(3.5rem, 9vw, 8rem);
-    font-weight: 300;
-    line-height: 0.95;
-    letter-spacing: -0.035em;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-  }
-
-  .hero-name em {
-    font-style: italic;
-    font-weight: 400;
-    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-bright) 50%, var(--accent) 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 8s linear infinite;
-  }
-
-  @keyframes shine {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
-  }
-
-  .hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.2rem, 2.8vw, 1.9rem);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--muted);
-    margin-bottom: 2.25rem;
-    letter-spacing: -0.01em;
-  }
-
-  .hero-desc {
-    max-width: 580px;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.85;
-    margin-bottom: 3rem;
-  }
-  .hero-desc strong { color: var(--text); font-weight: 400; }
-
-  .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    margin-bottom: 3rem;
-    max-width: 720px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .stat {
-    padding: 1.5rem 1.5rem 1.5rem 0;
-    border-right: 1px solid var(--border);
-  }
-  .stat:last-child { border-right: none; padding-right: 0; }
-  .stat:not(:first-child) { padding-left: 1.5rem; }
-
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--text);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-    letter-spacing: -0.02em;
-  }
-  .stat-num em {
-    color: var(--accent);
-    font-style: normal;
-  }
-
-  .stat-label {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 0.85rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    padding: 0.95rem 2.25rem;
-    background: var(--accent);
-    color: var(--bg);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px -10px rgba(200,185,122,0.5);
-    background: var(--accent-bright);
-  }
-  .btn-primary .arr { transition: transform 0.2s ease; }
-  .btn-primary:hover .arr { transform: translateX(4px); }
-
-  .btn-ghost {
-    padding: 0.95rem 2rem;
-    background: transparent;
-    color: var(--muted);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .btn-ghost:hover {
-    color: var(--text);
-    border-color: var(--border-bright);
-    background: rgba(200,185,122,0.04);
-  }
-
-  .scroll-cue {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .scroll-cue-line {
-    width: 1px;
-    height: 32px;
-    background: linear-gradient(to bottom, var(--accent), transparent);
-    animation: scrollLine 2s ease-in-out infinite;
-  }
-  @keyframes scrollLine {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
-  }
-
-  /* MARQUEE */
-  .marquee {
-    overflow: hidden;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1.25rem 0;
-    background: rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 1;
-  }
-  .marquee-track {
-    display: flex;
-    gap: 3rem;
-    width: max-content;
-    animation: marquee 40s linear infinite;
-    align-items: center;
-  }
-  .marquee-item {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-style: italic;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-  .marquee-item.accent { color: var(--accent); }
-  .marquee-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* SECTION HEADERS */
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
-
-  .section-num {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    text-transform: uppercase;
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 300;
-    letter-spacing: -0.025em;
-    color: var(--text);
-  }
-  .section-title em { font-style: italic; color: var(--accent); }
-
-  .section-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, var(--border), transparent);
-  }
-
-  /* EXPERIENCE */
-  .exp-item {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 3rem;
-    padding: 3rem 0;
-    border-top: 1px solid var(--border);
-    position: relative;
-    transition: background 0.3s ease;
-  }
-  .exp-item:last-child { border-bottom: 1px solid var(--border); }
-
-  .exp-item::before {
-    content: '';
-    position: absolute;
-    left: -1rem;
-    top: 3.25rem;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-  }
-  .exp-item:hover::before {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 12px rgba(200,185,122,0.6);
-  }
-
-  .exp-meta { padding-top: 0.25rem; }
-
-  .exp-company {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 0.4rem;
-    letter-spacing: -0.01em;
-  }
-
-  .exp-period {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .exp-location {
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  .exp-role {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--text);
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.01em;
-  }
-
-  .exp-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-  }
-
-  .exp-bullets li {
-    position: relative;
-    padding-left: 1.75rem;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  .exp-bullets li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--accent);
-    font-family: var(--font-mono);
-  }
-
-  .highlight {
-    color: var(--text);
-    font-weight: 400;
-    white-space: nowrap;
-  }
-
-  /* SKILLS */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .skill-group {
-    background: var(--bg);
-    padding: 2rem;
-    transition: background 0.25s ease;
-  }
-  .skill-group:hover { background: var(--bg2); }
-
-  .skill-group-label {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .skill-group-label::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .tag {
-    font-size: 11px;
-    padding: 5px 11px;
-    background: var(--bg3);
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    border-radius: 2px;
-    transition: all 0.2s ease;
-  }
-  .tag:hover {
-    background: var(--accent);
-    color: var(--bg);
-  }
-
-  /* PROJECTS */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .project-card {
-    background: var(--bg);
-    padding: 2.5rem;
-    transition: background 0.3s ease;
-    position: relative;
-    display: block;
-    color: inherit;
-    overflow: hidden;
-  }
-
-  .project-card:hover { background: var(--bg2); }
-
-  .project-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-  a.project-card:hover::after { transform: scaleX(1); }
-  a.project-card:hover .project-name { color: var(--accent); }
-
-  .project-arrow {
-    position: absolute;
-    top: 2.5rem;
-    right: 2.5rem;
-    color: var(--muted);
-    font-size: 16px;
-    transition: transform 0.3s ease, color 0.3s ease;
-  }
-  a.project-card:hover .project-arrow {
-    color: var(--accent);
-    transform: translate(5px, -5px);
-  }
-
-  .project-index {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    font-family: var(--font-mono);
-  }
-
-  .project-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 0.75rem;
-    padding: 3px 8px;
-    background: rgba(111,168,111,0.08);
-    border: 1px solid rgba(111,168,111,0.2);
-    border-radius: 2px;
-  }
-  .project-status::before {
-    content: '';
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px rgba(111,168,111,0.6);
-  }
-
-  .project-name {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    transition: color 0.25s ease;
-  }
-
-  .project-desc {
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.75;
-    margin-bottom: 1.5rem;
-  }
-
-  .project-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .stack-tag {
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    padding: 3px 9px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    text-transform: uppercase;
-    border-radius: 2px;
-  }
-
-  /* CONTACT */
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
-
-  .contact-heading {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    color: var(--text);
-    margin-bottom: 1.5rem;
-  }
-
-  .contact-heading em {
-    font-style: italic;
-    background: linear-gradient(120deg, var(--accent), var(--accent-bright), var(--accent));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 8s linear infinite;
-  }
-
-  .contact-text {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.85;
-    margin-bottom: 2rem;
-    max-width: 420px;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 13px;
-    transition: all 0.25s ease;
-    border-radius: 2px;
-    position: relative;
-    overflow: hidden;
-  }
-  .contact-link:hover {
-    border-color: var(--border-bright);
-    color: var(--text);
-    background: rgba(200,185,122,0.04);
-    transform: translateX(4px);
-  }
-  .contact-link::after {
-    content: '↗';
-    margin-left: auto;
-    color: var(--dim);
-    transition: color 0.25s ease, transform 0.25s ease;
-  }
-  .contact-link:hover::after {
-    color: var(--accent);
-    transform: translate(3px, -3px);
-  }
-  .contact-link.no-arr::after { display: none; }
-
-  .contact-link-label {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    min-width: 70px;
-  }
-
-  footer {
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: var(--max);
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-text { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
-  .footer-text em { color: var(--accent); font-style: normal; }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.25rem; }
-    nav.scrolled { padding: 0.85rem 1.25rem; }
-    .nav-links { gap: 1.25rem; }
-    .nav-cta { display: none; }
-    section { padding: 5rem 1.25rem; }
-    #hero { padding: 7rem 1.25rem 4rem; }
-    .exp-item { grid-template-columns: 1fr; gap: 1rem; padding: 2.5rem 0; }
-    .exp-item::before { display: none; }
-    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .hero-stats { grid-template-columns: 1fr; }
-    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 1rem 0 !important; }
-    .stat:last-child { border-bottom: none; }
-    .scroll-cue { display: none; }
-    footer { padding: 2rem 1.25rem; flex-direction: column; gap: 0.5rem; text-align: center; }
-    .highlight { white-space: normal; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#f3f5f7;--surface:#ffffff;--sunk:#e9edf2;
+  --ink:#0d1726;--muted:#4a5669;--dim:#7d8a9d;
+  --line:#dbe1e8;--line2:#c3ccd7;
+  --accent:#2b44e0;--accent-soft:rgba(43,68,224,.08);--on-accent:#ffffff;
+  --amber:#b86e00;--amber-soft:rgba(199,122,10,.12);
+  --display:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --max:1160px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0a0f1a;--surface:#111827;--sunk:#0d1320;
+  --ink:#e4e9f2;--muted:#9aa6b8;--dim:#66738b;
+  --line:#1e2738;--line2:#2e3a50;
+  --accent:#8a9bff;--accent-soft:rgba(138,155,255,.12);--on-accent:#0a0f1a;
+  --amber:#f0b44c;--amber-soft:rgba(240,180,76,.12);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0a0f1a;--surface:#111827;--sunk:#0d1320;
+  --ink:#e4e9f2;--muted:#9aa6b8;--dim:#66738b;
+  --line:#1e2738;--line2:#2e3a50;
+  --accent:#8a9bff;--accent-soft:rgba(138,155,255,.12);--on-accent:#0a0f1a;
+  --amber:#f0b44c;--amber-soft:rgba(240,180,76,.12);
+  color-scheme:dark;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:32px 32px;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 30%,transparent 0,var(--paper) 75%);pointer-events:none;z-index:-1}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--on-accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:24px}
+.mono{font-family:var(--mono)}
+strong{font-weight:600;color:var(--ink)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;font-weight:700}
+.cap{font:500 12px/1.4 var(--mono);letter-spacing:.06em;color:var(--dim);text-transform:uppercase}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap;font:600 17px var(--display);letter-spacing:-.01em}
+.brand svg{width:22px;height:22px}
+nav ul{display:flex;gap:26px;list-style:none;font-size:14px;color:var(--muted)}
+nav ul a:hover{color:var(--ink)}
+.live-chip{display:inline-flex;align-items:center;gap:8px;font:500 12px var(--mono);color:var(--amber);background:var(--amber-soft);padding:5px 10px;border-radius:999px;white-space:nowrap}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--amber)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.nav-right{display:flex;align-items:center;gap:10px}
+.theme-btn{width:34px;height:34px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line2);background:var(--surface);color:var(--ink);cursor:pointer}
+.theme-btn:hover{border-color:var(--ink)}
+.theme-btn svg{width:16px;height:16px}
+.theme-btn .sun{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:block}
+:root[data-theme="dark"] .theme-btn .moon{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .theme-btn .sun{display:block}:root:not([data-theme="light"]) .theme-btn .moon{display:none}}
+@media (max-width:420px){.live-chip{display:none}}
+@media (max-width:760px){nav ul{display:none}}
+
+.hero{padding-block:72px 32px}
+.who{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:28px}
+.who b{font:600 15px var(--sans)}
+.who span{font-size:15px;color:var(--muted)}
+.hero h1{font-size:clamp(40px,7vw,88px);line-height:.98;letter-spacing:-.035em;font-weight:750;max-width:14ch;font-variation-settings:"opsz" 96}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:clamp(17px,1.6vw,19px);color:var(--muted);max-width:60ch;margin-top:28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;padding:11px 18px;border-radius:8px;border:1px solid var(--line2);background:var(--surface);transition:border-color .15s,transform .15s}
+.btn:hover{border-color:var(--ink);transform:translateY(-1px)}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.copy{font:13px var(--mono);color:var(--muted);background:none;border:0;cursor:pointer;padding:6px}
+.copy:hover{color:var(--ink)}
+
+.lineage{margin-top:56px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.lineage-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 20px;border-bottom:1px solid var(--line)}
+.lineage-scroll{overflow-x:auto}
+.lineage svg{display:block;width:100%;min-width:760px;height:auto}
+.lineage .col{font:500 11px var(--mono);letter-spacing:.08em;fill:var(--dim)}
+.lineage .edge{fill:none;stroke:var(--line2);stroke-width:1.5}
+.lineage .node rect{fill:var(--paper);stroke:var(--line2);stroke-width:1}
+.lineage .node.hot rect{stroke:var(--accent)}
+.lineage .node .t{font:500 13px var(--mono);fill:var(--ink)}
+.lineage .node .s{font:400 11px var(--sans);fill:var(--muted)}
+.lineage .dotp{fill:var(--accent)}
+.lineage .dotp.amber{fill:var(--amber)}
+
+.impact{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+.bar-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.bar-card .big{font:700 40px/1 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.bar-card .what{font-size:13.5px;color:var(--muted);margin:10px 0 16px;line-height:1.45;min-height:3.9em}
+.bars{display:grid;gap:6px;font:11px var(--mono);color:var(--dim);font-variant-numeric:tabular-nums}
+.bars div{display:grid;grid-template-columns:44px 1fr 48px;align-items:center;gap:8px}
+.bars i{display:block;height:8px;border-radius:2px;background:var(--line2)}
+.bars .after i{background:var(--accent)}
+.bars .after{color:var(--ink)}
+.bars span:last-child{text-align:right}
+
+section{padding-block:96px 0;scroll-margin-top:60px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:12px;margin-bottom:32px}
+.sec-head h2{font-size:clamp(30px,4vw,44px);letter-spacing:-.035em;line-height:1}
+
+.timeline{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px 24px 16px;margin-bottom:24px}
+.track{position:relative;height:36px;margin-top:8px}
+.span{position:absolute;top:6px;height:24px;border-radius:4px;display:flex;align-items:center;padding-inline:10px;font:500 12px var(--mono);white-space:nowrap;overflow:hidden}
+.span.apple{background:var(--sunk);border:1px solid var(--line2);color:var(--muted)}
+.span.branch{background:var(--accent-soft);border:1px solid var(--accent);color:var(--accent)}
+.span.wiz{background:var(--amber);padding:0}
+.promo-tick{position:absolute;top:0;bottom:0;width:0;border-left:1.5px dashed var(--accent)}
+.promo-tick span{position:absolute;top:-16px;left:4px;font:10px var(--mono);color:var(--accent);white-space:nowrap}
+.axis{position:relative;height:18px;border-top:1px solid var(--line2);margin-top:4px;font:11px var(--mono);color:var(--dim)}
+.axis span{position:absolute;top:4px;transform:translateX(-50%);white-space:nowrap}
+.axis span:first-child{transform:none}
+.axis span:last-child{transform:translateX(-100%);color:var(--amber)}
+.wiz-label{display:none}
+.tl-legend{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+.job{display:grid;grid-template-columns:240px 1fr;gap:40px;padding:36px 0;border-top:1px solid var(--line)}
+.job .when h3{font-size:22px;letter-spacing:-.02em;line-height:1.2}
+.job .when p{font:13px/1.8 var(--mono);color:var(--dim);margin-top:6px}
+.job .role{font:600 17px var(--sans)}
+.job .ctx{color:var(--dim);font-size:14.5px;margin:4px 0 18px;max-width:70ch}
+.job ul{list-style:none;display:grid;gap:12px;max-width:74ch}
+.job li{position:relative;padding-left:22px;color:var(--muted);font-size:15.5px}
+.job li::before{content:"";position:absolute;left:0;top:.72em;width:10px;height:1.5px;background:var(--accent)}
+.badge{font:500 11px var(--mono);color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:4px;margin-left:8px;vertical-align:2px;white-space:nowrap}
+
+.feature{border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.feature-top{display:grid;grid-template-columns:1fr 1fr}
+.feature-copy{padding:36px}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}
+.tag{font:12px var(--mono);color:var(--muted);border:1px solid var(--line2);padding:3px 9px;border-radius:6px}
+.label{font:500 12px var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.label.live{color:var(--amber);display:inline-flex;gap:8px;align-items:center}
+.feature h3,.proj h3{font-size:30px;letter-spacing:-.03em;margin:10px 0 12px;line-height:1.1}
+.feature p,.proj p{color:var(--muted);font-size:15px}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.links a{font-size:13px;font-weight:500;padding:8px 14px;border-radius:7px;border:1px solid var(--line2);transition:border-color .15s}
+.links a:hover{border-color:var(--ink)}
+.links a.go{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.shot{display:block;background:var(--sunk);border-left:1px solid var(--line);padding:28px 0 0 28px;overflow:hidden}
+.shot img{display:block;width:140%;max-width:none;border-radius:10px 0 0 0;border:1px solid var(--line2);border-right:0;border-bottom:0;transition:transform .4s}
+.shot:hover img{transform:translate(-6px,-6px)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.stats>div{padding:18px 24px}
+.stats>div+div{border-left:1px solid var(--line)}
+.stats .v{font:500 19px var(--mono);font-variant-numeric:tabular-nums}
+.stats .k{font-size:12px;color:var(--dim);margin-top:2px}
+.flow{border-top:1px solid var(--line);padding:22px 36px;display:flex;align-items:center;flex-wrap:wrap;gap:10px;font:12px var(--mono);color:var(--muted);background:var(--sunk)}
+.flow span{border:1px solid var(--line2);background:var(--surface);padding:6px 10px;border-radius:6px}
+.flow span b{color:var(--ink);font-weight:500}
+.flow i{font-style:normal;color:var(--accent)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.proj{border:1px solid var(--line);border-radius:16px;background:var(--surface);display:flex;flex-direction:column;overflow:hidden}
+.proj .body{padding:32px;flex:1;display:flex;flex-direction:column}
+.proj .links{margin-top:auto;padding-top:24px}
+.proj .viz{background:var(--sunk);border-bottom:1px solid var(--line);height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.proj .viz svg{width:100%;height:100%}
+.term{width:88%;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font:12px/1.7 var(--mono)}
+.term-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line);color:var(--dim);font-size:11px}
+.term-bar i{width:9px;height:9px;border-radius:50%;background:var(--line2)}
+.term-bar b{margin-left:6px;font-weight:400}
+.term pre{padding:12px 14px;white-space:pre;overflow-x:auto;color:var(--muted)}
+.term .k{color:var(--accent)}.term .c{color:var(--dim)}.term .g{color:var(--amber)}.term .t{color:var(--ink)}
+.note{font-size:12.5px;color:var(--dim);margin-top:10px}
+
+.skills{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.skills div{background:var(--surface);padding:24px 28px}
+.skills h4{font:500 12px var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.skills p{color:var(--muted);font-size:15px}
+.edu{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:22px 28px;margin-top:16px}
+.edu span{color:var(--muted);font-size:15px}
+
+.contact{margin-top:112px;padding-block:64px;border-top:1px solid var(--line);display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:end}
+.contact h2{font-size:clamp(34px,5vw,60px);line-height:1;letter-spacing:-.04em}
+.contact p{color:var(--muted);margin-top:18px;max-width:46ch}
+.clinks{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.clinks a{display:flex;justify-content:space-between;gap:12px;background:var(--surface);padding:16px 20px;font-size:14px}
+.clinks a span:first-child{color:var(--dim);font:13px var(--mono)}
+.clinks a:hover{background:var(--sunk)}
+footer{border-top:1px solid var(--line);padding-block:24px 40px;font:12px var(--mono);color:var(--dim)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media (max-width:980px){.impact{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:900px){
+  .feature-top,.grid2,.contact{grid-template-columns:1fr}
+  .shot{border-left:0;border-top:1px solid var(--line)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats>div:nth-child(3){border-left:0}
+  .stats>div:nth-child(n+3){border-top:1px solid var(--line)}
+  .job{grid-template-columns:1fr;gap:14px}
+  .skills{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .wrap{padding-inline:16px}
+  .hero{padding-block:48px 24px}
+  .impact{grid-template-columns:1fr}
+  .bar-card .what{min-height:0}
+  .feature-copy,.proj .body{padding:24px}
+  .flow{padding:18px 24px}
+  .timeline{padding-inline:16px}
+  .track{height:92px}
+  .span.apple{top:4px}.span.branch{top:34px}.span.wiz{top:64px}
+  .promo-tick{top:30px;bottom:28px}
+  .wiz-label{display:block;position:absolute;top:64px;right:calc(3% + 8px);height:24px;line-height:24px;font:500 12px var(--mono);color:var(--amber);white-space:nowrap}
+  .axis span:nth-child(2),.axis span:nth-child(4),.axis span:nth-child(6),.axis span:last-child{display:none}
+}
 </style>
 </head>
 <body>
 
-<div class="scroll-progress" id="scrollProgress"></div>
-
-<nav id="nav">
-  <a href="#hero" class="nav-logo">
-    <span class="nav-logo-dot"></span>
-    Aishit Dua
-  </a>
-  <ul class="nav-links">
-    <li><a href="#experience">Work</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact" class="nav-cta">Get in touch</a></li>
-  </ul>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Aishit Dua, home">
+      <svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="5" cy="11" r="3" fill="var(--accent)"/><circle cx="17" cy="5" r="3" fill="var(--accent)"/><circle cx="17" cy="17" r="3" fill="var(--amber)"/><path d="M8 10 14 6.5M8 12 14 15.5" stroke="var(--accent)" stroke-width="1.6"/></svg>
+      Aishit Dua
+    </a>
+    <ul>
+      <li><a href="#work">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+  <a class="live-chip" href="https://huggingface.co/spaces/aishitdua/ghlake" target="_blank" rel="noopener" title="Events loaded by my ghlake pipeline"><span class="pulse"></span><span id="chip">ghlake · 7,558,564 events</span></a>
+      <button class="theme-btn" id="theme" type="button" aria-label="Switch between light and dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
 </nav>
 
-<div style="padding: 0 3rem;">
-  <section id="hero">
-    <div class="status-pill">
-      <span class="dot"></span>
-      <span>Open to <strong>Senior Backend</strong> roles</span>
+<main class="wrap" id="top">
+  <header class="hero">
+    <div class="who"><b>Aishit Dua</b><span>Senior Data Engineer at WizCommerce · Bengaluru</span></div>
+    <h1>Data that stays <em>correct, cheap,</em> and safe to query.</h1>
+    <p class="lede">Backend and data platform engineer, five years across B2B commerce, fintech lending, and Apple Maps. I build warehouses, pipelines, and query layers on one side, and authorization and platform services on the other.</p>
+    <div class="cta">
+      <a class="btn primary" href="mailto:aish1804@gmail.com">Email me</a>
+      <a class="btn" href="https://github.com/aishitdua" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="https://linkedin.com/in/aishit-dua" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <button class="copy" id="copy" type="button">aish1804@gmail.com · copy</button>
     </div>
-    <div class="hero-eyebrow">Backend Engineer · Bengaluru, IN</div>
-    <h1 class="hero-name">Aishit <em>Dua</em></h1>
-    <p class="hero-title">Security, scale &amp; distributed systems.</p>
-    <p class="hero-desc">5+ years building <strong>high-throughput, security-critical systems</strong>. Fraud detection engines, distributed authorization frameworks, and data pipelines handling millions of daily transactions at <strong>Branch International</strong> and <strong>Apple</strong>.</p>
 
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">5<em>+</em></div>
-        <div class="stat-label">Years experience</div>
+    <figure class="lineage" aria-label="Lineage of pipelines I have built, from sources to the people who query them">
+      <figcaption class="lineage-head"><span class="cap">Lineage · pipelines I've built</span><span class="cap">each dot is a batch of rows</span></figcaption>
+      <div class="lineage-scroll">
+        <svg id="dag" viewBox="0 0 1000 300" role="img" aria-label="Three pipelines: GH Archive to ghlake dashboard, Postgres CDC to the KAI mart and LLM agent, partner sources through Airflow and dbt to reconciled credit-bureau reports">
+          <text class="col" x="20" y="22">SOURCE</text>
+          <text class="col" x="280" y="22">LAND · STAGE</text>
+          <text class="col" x="540" y="22">MODEL</text>
+          <text class="col" x="800" y="22">SERVE</text>
+          <g id="edges"></g>
+          <g id="nodes"></g>
+          <g id="dots"></g>
+        </svg>
       </div>
-      <div class="stat">
-        <div class="stat-num">~40<em>%</em></div>
-        <div class="stat-label">ATO reduction</div>
+    </figure>
+
+    <div class="impact">
+      <div class="bar-card">
+        <div class="big">−74%</div>
+        <div class="what">BigQuery cost for KAI, an LLM reporting agent over 60+ tenants</div>
+        <div class="bars"><div><span>before</span><i style="width:100%"></i><span>100</span></div><div class="after"><span>after</span><i style="width:26%"></i><span>26</span></div></div>
       </div>
-      <div class="stat">
-        <div class="stat-num">50M<em>+</em></div>
-        <div class="stat-label">Daily records</div>
+      <div class="bar-card">
+        <div class="big">89%</div>
+        <div class="what">Correct SQL from the NL-to-SQL agent on 60 real user questions</div>
+        <div class="bars"><div><span>before</span><i style="width:72%"></i><span>72%</span></div><div class="after"><span>after</span><i style="width:89%"></i><span>89%</span></div></div>
+      </div>
+      <div class="bar-card">
+        <div class="big">~4 h</div>
+        <div class="what">Staff access requests after merging 12 permission models into one RBAC service</div>
+        <div class="bars"><div><span>before</span><i style="width:100%"></i><span>~72 h</span></div><div class="after"><span>after</span><i style="width:5.6%"></i><span>~4 h</span></div></div>
+      </div>
+      <div class="bar-card">
+        <div class="big">98.5%</div>
+        <div class="what">Apple Maps ingestion SLA, with 50M+ records validated a day</div>
+        <div class="bars"><div><span>before</span><i style="width:91%"></i><span>91%</span></div><div class="after"><span>after</span><i style="width:98.5%"></i><span>98.5%</span></div></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="work">
+    <div class="sec-head"><h2>Experience</h2><span class="cap">3 roles · 5 years</span></div>
+
+    <div class="timeline" aria-label="Career timeline, May 2021 to today">
+      <div class="track">
+        <div class="span apple" style="left:0;width:42.4%">Apple Maps</div>
+        <div class="span branch" style="left:42.4%;width:54.6%">Branch International</div>
+        <div class="promo-tick" style="left:71.2%"><span>SDE 2</span></div>
+        <div class="span wiz" style="left:97%;width:1.5%" title="WizCommerce"></div>
+        <div class="wiz-label">WizCommerce · now</div>
+      </div>
+      <div class="axis">
+        <span style="left:0">May '21</span><span style="left:12.1%">2022</span><span style="left:30.3%">2023</span><span style="left:48.5%">2024</span><span style="left:66.7%">2025</span><span style="left:84.8%">2026</span><span style="left:98.5%">now · WizCommerce</span>
       </div>
     </div>
 
-    <div class="hero-cta">
-      <a href="#contact" class="btn-primary">Get in touch <span class="arr">→</span></a>
-      <a href="#experience" class="btn-ghost">View work</a>
-    </div>
-
-    <div class="scroll-cue">
-      <span>Scroll</span>
-      <div class="scroll-cue-line"></div>
-    </div>
-  </section>
-</div>
-
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-item">Fraud Detection</span><span class="marquee-dot"></span>
-    <span class="marquee-item accent">RBAC</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Distributed Systems</span><span class="marquee-dot"></span>
-    <span class="marquee-item accent">Authorization</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Data Pipelines</span><span class="marquee-dot"></span>
-    <span class="marquee-item accent">PII Governance</span><span class="marquee-dot"></span>
-    <span class="marquee-item">High-throughput APIs</span><span class="marquee-dot"></span>
-    <span class="marquee-item accent">Security Engineering</span><span class="marquee-dot"></span>
-    <!-- duplicate for seamless loop -->
-    <span class="marquee-item">Fraud Detection</span><span class="marquee-dot"></span>
-    <span class="marquee-item accent">RBAC</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Distributed Systems</span><span class="marquee-dot"></span>
-    <span class="marquee-item accent">Authorization</span><span class="marquee-dot"></span>
-    <span class="marquee-item">Data Pipelines</span><span class="marquee-dot"></span>
-    <span class="marquee-item accent">PII Governance</span><span class="marquee-dot"></span>
-    <span class="marquee-item">High-throughput APIs</span><span class="marquee-dot"></span>
-    <span class="marquee-item accent">Security Engineering</span><span class="marquee-dot"></span>
-  </div>
-</div>
-
-<div style="padding: 0 3rem;">
-  <section id="experience">
-    <div class="section-header fade-in">
-      <span class="section-num">01</span>
-      <h2 class="section-title">Selected <em>experience</em></h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="exp-item fade-in">
-      <div class="exp-meta">
-        <div class="exp-company">Branch International</div>
-        <div class="exp-period">Sep 2023 — Present</div>
-        <div class="exp-location">Bengaluru, IN</div>
-      </div>
+    <article class="job">
+      <div class="when"><h3>WizCommerce</h3><p>Sep 2026 – present<br>Bengaluru</p></div>
       <div>
-        <div class="exp-role">Backend Engineer</div>
-        <ul class="exp-bullets">
-          <li>Engineered a New Device Login system with device fingerprinting and token rotation — reduced account takeovers <span class="highlight">~40%</span> across 1M+ active users, driving ~$500/week in fraud loss reduction.</li>
-          <li>Architected a configurable Fraud Detection Framework with rule-engine + real-time scoring across 4 signal feeds; cut false-positive rate <span class="highlight">25%</span>.</li>
-          <li>Delivered a full-stack RBAC system consolidating 12 permission models; reduced access-request resolution from 3 days to <span class="highlight">4 hours</span>.</li>
-          <li>Built a Maker-Checker approval framework enforced across <span class="highlight">13 critical</span> admin workflows; adopted by 3 additional teams within 6 months.</li>
-          <li>Built end-to-end PII Tag Governance system masking <span class="highlight">41 recurring</span> fields with RBI audit compliance and Slack alerting.</li>
-          <li>Prevented ~3k unauthorized debit transactions/week via Post-No-Debit enforcement across Nigeria wallet flows.</li>
+        <div class="role">Senior Data Engineer</div>
+        <p class="ctx">B2B commerce platform. KAI, its LLM sales assistant, answers reporting questions by generating BigQuery SQL for 60+ tenants.</p>
+        <ul>
+          <li>Designed a BigQuery mart for KAI (18 fact and aggregate tables, partitioned and clustered by tenant), moved the agent onto it, and fixed the SQL pattern behind 40% of 4,172 traced queries. Query cost fell <strong>74%</strong>, bytes read on top prompts fell <strong>81%</strong>, and restricted users' queries bill <strong>183×</strong> fewer bytes.</li>
+          <li>Wrote the job that rebuilds the mart every 2 hours from raw CDC tables: stage every table, check row counts, swap. Reports are <strong>3 hours fresher</strong>. Chose full rebuilds after measuring that MERGE and materialized views could not prune the unpartitioned sources.</li>
+          <li>Took the NL-to-SQL agent from <strong>72% to 89%</strong> correct SQL on 60 real user questions by fixing the schema catalog and row-level access injection, after a LangSmith trace review showed 22% of calls quietly returning zero rows.</li>
+          <li>Deleted ~700 GB of stale data from production Postgres, saving <strong>~$2K/month</strong>, sequenced through CDC so the BigQuery replay cost under $200 one-off.</li>
         </ul>
       </div>
-    </div>
+    </article>
 
-    <div class="exp-item fade-in">
-      <div class="exp-meta">
-        <div class="exp-company">Apple</div>
-        <div class="exp-period">May 2021 — Aug 2023</div>
-        <div class="exp-location">Hyderabad, IN · Contractor</div>
-      </div>
+    <article class="job">
+      <div class="when"><h3>Branch International</h3><p>Sep 2023 – Aug 2026<br>Bengaluru</p></div>
       <div>
-        <div class="exp-role">Software Development Engineer</div>
-        <ul class="exp-bullets">
-          <li>Built automated data-quality monitoring pipeline for Maps Data Engineering — cut validation time <span class="highlight">487%</span> across 50M+ daily records.</li>
-          <li>Designed a relevance-ranking feature for data attributes; increased downstream team throughput <span class="highlight">50%</span> and improved Maps POI accuracy.</li>
-          <li>Lifted SLA compliance from 91% to <span class="highlight">98.5%</span> via automation scripts in the ingestion toolchain, reducing manual pipeline interventions ~60%.</li>
+        <div class="role">Software Development Engineer 2, Platform <span class="badge">promoted Apr 2025</span></div>
+        <p class="ctx">Fintech lender in India, Kenya, and Nigeria handling millions of daily transactions.</p>
+        <ul>
+          <li>Consolidated 12 permission models across 3 countries into one RBAC service. Staff access requests went from <strong>~3 days to ~4 hours</strong> and access reviews became one process.</li>
+          <li>Shipped New Device Login with device fingerprinting and step-up auth, ramped 10% → 100% across Kenya and Nigeria. Account takeovers fell <strong>~40%</strong> across 1M+ users.</li>
+          <li>Built the Maker-Checker Approval Framework, a shared Rails service with a TypeScript UI, putting dual control on 15+ critical admin actions used by 10+ teams.</li>
+          <li>Moved a 190M-row lookup path from PostgreSQL to Redis with TTL expiry and no downtime. Read latency fell <strong>~80%</strong>.</li>
+          <li>Built the External Data Ingestion Framework on Airflow and dbt, replacing 5 one-off pipelines. A new source is a single YAML file and every load is traceable.</li>
+          <li>Built a reconciliation framework across Postgres, Snowflake, and external reports that catches silent data loss the same day, and moved credit-bureau reporting for 4 lending partners onto it.</li>
         </ul>
       </div>
-    </div>
+    </article>
 
-    <div class="exp-item fade-in">
-      <div class="exp-meta">
-        <div class="exp-company">Stride.AI</div>
-        <div class="exp-period">May — Dec 2020</div>
-        <div class="exp-location">Remote · Intern</div>
-      </div>
+    <article class="job">
+      <div class="when"><h3>Apple</h3><p>May 2021 – Aug 2023<br>Hyderabad · via ThoughtGenesis</p></div>
       <div>
-        <div class="exp-role">Software Engineer Intern</div>
-        <ul class="exp-bullets">
-          <li>ML table-extraction pipeline across ~5k files with <span class="highlight">+20%</span> efficiency; Node.js data-mining tool at 50k records/day; Python ETL cutting runtime from 90 to 40 min.</li>
+        <div class="role">Software Development Engineer, Maps Data Engineering</div>
+        <p class="ctx">Ingestion and data quality for Apple Maps.</p>
+        <ul>
+          <li>Built the Scala/Spark data-quality pipeline for Maps, checking <strong>50M+ records a day</strong> against business rules and coordinate validity. Validation time fell ~83%.</li>
+          <li>Automated the ingestion toolchain: manual interventions down ~60%, pipeline SLA up from <strong>91% to 98.5%</strong>.</li>
+          <li>Designed a feature that surfaces the most relevant attributes per record, cutting downstream review effort ~50%.</li>
         </ul>
       </div>
-    </div>
-  </section>
-
-  <section id="education">
-    <div class="section-header fade-in">
-      <span class="section-num">02</span>
-      <h2 class="section-title">Education</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="exp-item fade-in">
-      <div class="exp-meta">
-        <div class="exp-company">IIIT Nagpur</div>
-        <div class="exp-period">2017 — 2021</div>
-        <div class="exp-location">Nagpur, IN</div>
-      </div>
-      <div>
-        <div class="exp-role">B.Tech, Computer Science &amp; Engineering</div>
-        <ul class="exp-bullets">
-          <li>Graduated with a focus on machine learning, distributed systems, and algorithms.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="education">
-    <div class="section-header fade-in">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Toolkit &amp; <em>expertise</em></h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="skills-grid fade-in">
-      <div class="skill-group">
-        <div class="skill-group-label">Languages</div>
-        <div class="skill-tags">
-          <span class="tag">Ruby</span>
-          <span class="tag">Python</span>
-          <span class="tag">SQL</span>
-          <span class="tag">Scala</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">SQL</span>
-          <span class="tag">C++</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-label">Infrastructure</div>
-        <div class="skill-tags">
-          <span class="tag">AWS</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">MySQL</span>
-          <span class="tag">Redis</span>
-          <span class="tag">Kafka</span>
-          <span class="tag">Snowflake</span>
-          <span class="tag">Docker</span>
-          <span class="tag">CI/CD</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-label">Frameworks</div>
-        <div class="skill-tags">
-          <span class="tag">Ruby on Rails</span>
-          <span class="tag">Express.js</span>
-          <span class="tag">FastAPI</span>
-          <span class="tag">Sidekiq</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-label">Expertise</div>
-        <div class="skill-tags">
-          <span class="tag">System Design</span>
-          <span class="tag">Distributed Systems</span>
-          <span class="tag">Auth &amp; Security</span>
-          <span class="tag">RBAC</span>
-          <span class="tag">PII Masking</span>
-          <span class="tag">API Design</span>
-        </div>
-      </div>
-    </div>
+    </article>
   </section>
 
   <section id="projects">
-    <div class="section-header fade-in">
-      <span class="section-num">04</span>
-      <h2 class="section-title">Selected <em>projects</em></h2>
-      <div class="section-line"></div>
-    </div>
+    <div class="sec-head"><h2>Projects</h2><span class="cap">2 live · all open source</span></div>
 
-    <div class="projects-grid fade-in">
-      <a class="project-card" href="https://github.com/aishitdua/Eventextraction" target="_blank" rel="noopener">
-        <span class="project-arrow">↗</span>
-        <div class="project-index">P / 01</div>
-        <div class="project-name">News Event Extraction Engine</div>
-        <p class="project-desc">Clustered 50k articles into 12–15 categories with 90%+ event-detection precision. Sub-second retrieval on 100k+ PostgreSQL records.</p>
-        <div class="project-stack">
-          <span class="stack-tag">spaCy</span>
-          <span class="stack-tag">DBSCAN</span>
-          <span class="stack-tag">TF-IDF</span>
-          <span class="stack-tag">PostgreSQL</span>
+    <article class="feature">
+      <div class="feature-top">
+        <div class="feature-copy">
+          <span class="label live"><span class="pulse"></span>Live · updates every hour</span>
+          <h3>ghlake</h3>
+          <p>An hourly lakehouse over <a href="https://www.gharchive.org" target="_blank" rel="noopener"><u>GH Archive</u></a>, the public record of every GitHub event. Idempotent ingest with size and gzip-CRC checks, a DuckDB silver layer with one row per event, and incremental dbt gold models that recompute only the days touched, guarded by grain, not-null, and freshness tests.</p>
+          <p style="margin-top:12px">It runs itself on GitHub Actions and costs nothing. The Hugging Face dataset doubles as the warehouse, and the dashboard runs DuckDB-WASM in your browser against the gold Parquet files.</p>
+          <div class="tag-row"><span class="tag">Python</span><span class="tag">DuckDB</span><span class="tag">dbt</span><span class="tag">Parquet</span><span class="tag">GitHub Actions</span><span class="tag">DuckDB-WASM</span></div>
+          <div class="links">
+            <a class="go" href="https://huggingface.co/spaces/aishitdua/ghlake" target="_blank" rel="noopener">Live dashboard ↗</a>
+            <a href="https://huggingface.co/datasets/aishitdua/ghlake" target="_blank" rel="noopener">Dataset ↗</a>
+            <a href="https://github.com/aishitdua/ghlake/actions/workflows/hourly.yml" target="_blank" rel="noopener">Pipeline runs ↗</a>
+            <a href="https://github.com/aishitdua/ghlake" target="_blank" rel="noopener">Code ↗</a>
+          </div>
         </div>
-      </a>
+        <a class="shot" href="https://huggingface.co/spaces/aishitdua/ghlake" target="_blank" rel="noopener" aria-label="Open the ghlake dashboard">
+          <img src="ghlake.png" alt="ghlake dashboard: events per hour by type, top starred repos, contributors per day, fork languages">
+        </a>
+      </div>
+      <div class="stats">
+        <div><div class="v" id="s-events">7,558,564</div><div class="k">events processed</div></div>
+        <div><div class="v" id="s-hours">102</div><div class="k">hours loaded</div></div>
+        <div><div class="v" id="s-newest">Sep 26 05:00</div><div class="k">newest hour (UTC)</div></div>
+        <div><div class="v" id="s-status">ok</div><div class="k">last run status</div></div>
+      </div>
+      <div class="flow">
+        <span><b>GH Archive</b> hourly .json.gz</span><i>→</i>
+        <span><b>bronze</b> raw, 7-day</span><i>→</i>
+        <span><b>silver</b> Parquet, dt/hour</span><i>→</i>
+        <span><b>dbt</b> incremental gold</span><i>→</i>
+        <span><b>HF dataset</b> warehouse</span><i>→</i>
+        <span><b>DuckDB-WASM</b> dashboard</span>
+      </div>
+    </article>
 
-      <a class="project-card" href="https://github.com/aishitdua/Recommender-System" target="_blank" rel="noopener">
-        <span class="project-arrow">↗</span>
-        <div class="project-index">P / 02</div>
-        <div class="project-name">Movie Recommender System</div>
-        <p class="project-desc">RBM collaborative filter on 1.2M IMDB records. RMSE reduced from 1.12 to 0.87. REST API at under 200ms p99 handling ~1k concurrent requests.</p>
-        <div class="project-stack">
-          <span class="stack-tag">RBM</span>
-          <span class="stack-tag">TensorFlow</span>
-          <span class="stack-tag">Keras</span>
-          <span class="stack-tag">REST API</span>
+    <div class="grid2">
+      <article class="proj">
+        <div class="viz" aria-hidden="true">
+          <svg viewBox="0 0 400 220" fill="none" font-family="IBM Plex Mono,monospace" font-size="11">
+            <g stroke="var(--line2)" stroke-width="1.5">
+              <path d="M200 44 L110 104"/><path d="M200 44 L290 104"/>
+              <path d="M110 104 L58 158"/><path d="M110 104 L152 158"/>
+              <path d="M290 104 L248 158"/><path d="M290 104 L342 158"/>
+            </g>
+            <path d="M200 44 L290 104 L342 158" stroke="var(--accent)" stroke-width="2"/>
+            <g>
+              <rect x="160" y="30" width="80" height="28" rx="6" fill="var(--surface)" stroke="var(--accent)"/><text x="200" y="48" text-anchor="middle" fill="var(--ink)">admin</text>
+              <rect x="66" y="90" width="88" height="28" rx="6" fill="var(--surface)" stroke="var(--line2)"/><text x="110" y="108" text-anchor="middle" fill="var(--muted)">developer</text>
+              <rect x="246" y="90" width="88" height="28" rx="6" fill="var(--surface)" stroke="var(--accent)"/><text x="290" y="108" text-anchor="middle" fill="var(--ink)">payments</text>
+              <rect x="14" y="158" width="88" height="24" rx="5" fill="var(--paper)" stroke="var(--line2)"/><text x="58" y="174" text-anchor="middle" fill="var(--dim)">auth.login</text>
+              <rect x="108" y="158" width="88" height="24" rx="5" fill="var(--paper)" stroke="var(--line2)"/><text x="152" y="174" text-anchor="middle" fill="var(--dim)">GET /users</text>
+              <rect x="204" y="158" width="88" height="24" rx="5" fill="var(--paper)" stroke="var(--line2)"/><text x="248" y="174" text-anchor="middle" fill="var(--dim)">GET /ledger</text>
+              <rect x="298" y="158" width="88" height="24" rx="5" fill="var(--surface)" stroke="var(--accent)"/><text x="342" y="174" text-anchor="middle" fill="var(--accent)">POST /pay ✓</text>
+            </g>
+          </svg>
         </div>
-      </a>
+        <div class="body">
+          <span class="label">Live app · authorization</span>
+          <h3>RBAC Explorer</h3>
+          <p>A visual designer for role-based access control. Import role hierarchies (YAML) and API endpoints (CSV), see inheritance as a graph grouped by service module, simulate whether a role can reach a path, and export the result as infrastructure-as-code.</p>
+          <div class="tag-row"><span class="tag">FastAPI</span><span class="tag">SQLAlchemy async</span><span class="tag">Postgres</span><span class="tag">React</span><span class="tag">Cytoscape.js</span></div>
+          <div class="links">
+            <a class="go" href="https://rbac-explorer-hkrk.vercel.app/" target="_blank" rel="noopener">Open app ↗</a>
+            <a href="https://github.com/aishitdua/RBACExplorer" target="_blank" rel="noopener">Code ↗</a>
+          </div>
+          <p class="note">Free sign-in required. The backend is on a free tier, so the first request may take ~30 s to wake.</p>
+        </div>
+      </article>
 
-      <a class="project-card" href="https://rbac-explorer-hkrk.vercel.app/" target="_blank" rel="noopener">
-        <span class="project-arrow">↗</span>
-        <div class="project-index">P / 03</div>
-        <div class="project-status">Live</div>
-        <div class="project-name">RBAC Explorer</div>
-        <p class="project-desc">Define roles, resources, and permissions interactively. Visualize the access graph and verify enforcement decisions in real time.</p>
-        <div class="project-stack">
-          <span class="stack-tag">FastAPI</span>
-          <span class="stack-tag">PostgreSQL</span>
-          <span class="stack-tag">React</span>
+      <article class="proj">
+        <div class="viz" aria-hidden="true">
+          <div class="term">
+            <div class="term-bar"><i></i><i></i><i></i><b>claude code</b></div>
+<pre><span class="g">$</span> <span class="t">/handoff out "retry path is the bug"</span>
+<span class="c">Handed off → ~/.claude-handoff/…a1b2.md</span>
+<span class="g">$</span> <span class="t">/handoff in</span>
+<span class="k">===== HANDOFF FROM account one =====</span>
+<span class="c">transcript · tool results · subagents</span>
+<span class="k">===== END HANDOFF =====</span></pre>
+          </div>
         </div>
-      </a>
+        <div class="body">
+          <span class="label">Open source · developer tooling</span>
+          <h3>claude-handoff-bridge</h3>
+          <p>Moves a Claude Code session between two accounts with its transcript, tool results, and subagent work intact. It handles four ways a naive transcript dump fails silently: truncated tool output, subagent transcripts that render to 0 bytes, persisted results left as stubs, and bloated inputs, cut from <strong>206 KB to 137 KB</strong>.</p>
+          <div class="tag-row"><span class="tag">Bash</span><span class="tag">jq</span><span class="tag">bats tests</span><span class="tag">CI</span></div>
+          <div class="links">
+            <a href="https://github.com/aishitdua/claude-handoff-bridge" target="_blank" rel="noopener">Code &amp; install ↗</a>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <section id="contact">
-    <div class="contact-inner fade-in">
-      <div>
-        <h2 class="contact-heading">Let's build something <em>serious.</em></h2>
-        <p class="contact-text">Open to senior backend, security, or distributed-systems roles. Particularly interested in fintech, infrastructure, or anything with real fraud/auth complexity.</p>
-        <a href="mailto:aish1804@gmail.com" class="btn-primary">aish1804@gmail.com <span class="arr">→</span></a>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:aish1804@gmail.com" class="contact-link">
-          <span class="contact-link-label">Email</span>
-          aish1804@gmail.com
-        </a>
-        <a href="https://linkedin.com/in/aishit-dua" class="contact-link" target="_blank" rel="noopener">
-          <span class="contact-link-label">LinkedIn</span>
-          linkedin.com/in/aishit-dua
-        </a>
-        <a href="https://github.com/aishitdua" class="contact-link" target="_blank" rel="noopener">
-          <span class="contact-link-label">GitHub</span>
-          github.com/aishitdua
-        </a>
-        <div class="contact-link no-arr" style="cursor: default;">
-          <span class="contact-link-label">Phone</span>
-          +91 — email preferred
-        </div>
-      </div>
+  <section id="toolkit">
+    <div class="sec-head"><h2>Toolkit</h2><span class="cap">what I reach for</span></div>
+    <div class="skills">
+      <div><h4>Data</h4><p>BigQuery, Snowflake, DuckDB, Airflow, dbt, Spark, PostgreSQL, Redis, Kafka, change data capture, warehouse modelling, query and cost optimisation</p></div>
+      <div><h4>Backend</h4><p>Rails, FastAPI, REST and MCP APIs, AWS (S3, RDS, IAM, KMS), GCP, Docker, CI/CD, authorization and RBAC, incident response</p></div>
+      <div><h4>AI systems</h4><p>LLM agents (LangGraph, LangChain, MCP tool servers), natural-language-to-SQL, RAG over schema catalogs (Qdrant, OpenAI embeddings), LangSmith tracing and evals, LiteLLM</p></div>
+      <div><h4>Languages</h4><p>Python, SQL, Ruby, Scala, TypeScript</p></div>
+    </div>
+    <div class="edu"><b>IIIT Nagpur</b><span>B.Tech, Computer Science · 2021 · CGPA 8.21 / 10</span></div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div>
+      <h2>Have data that needs to be correct, cheap, or safe?</h2>
+      <p>I'm open to senior data and backend platform roles. Email is the fastest way to reach me.</p>
+    </div>
+    <div class="clinks">
+      <a href="mailto:aish1804@gmail.com"><span>email</span><span>aish1804@gmail.com</span></a>
+      <a href="https://linkedin.com/in/aishit-dua" target="_blank" rel="noopener"><span>linkedin</span><span>in/aishit-dua ↗</span></a>
+      <a href="https://github.com/aishitdua" target="_blank" rel="noopener"><span>github</span><span>aishitdua ↗</span></a>
     </div>
   </section>
-</div>
+</main>
 
-<footer>
-  <span class="footer-text">© <em>Aishit Dua</em> · Bengaluru, IN</span>
-  <span class="footer-text">IIIT Nagpur · B.Tech CS · 2021</span>
-</footer>
+<footer><div class="wrap"><span>© 2026 Aishit Dua · Bengaluru</span><span>Plain HTML. Live numbers come from ghlake.</span></div></footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+const NS = 'http://www.w3.org/2000/svg';
+const COLS = [20, 280, 540, 800], ROWS = [70, 160, 250], W = 180, H = 50;
+const nodes = {
+  gha:   [0, 0, 'GH Archive', 'hourly .json.gz'],
+  cdc:   [0, 1, 'Postgres CDC', 'raw tables, 60+ tenants'],
+  ext:   [0, 2, 'Partner feeds', 'one YAML per source'],
+  silver:[1, 0, 'bronze → silver', 'Parquet, one row per event'],
+  stage: [1, 1, 'stage + check', 'row counts, then swap'],
+  air:   [1, 2, 'Airflow + dbt', 'traceable loads'],
+  gold:  [2, 0, 'dbt gold', 'incremental, tested', true],
+  mart:  [2, 1, 'KAI mart', '18 tables, tenant-clustered', true],
+  recon: [2, 2, 'Reconciliation', 'PG ↔ Snowflake ↔ reports'],
+  dash:  [3, 0, 'DuckDB-WASM', 'dashboard in the browser'],
+  agent: [3, 1, 'LLM agent', 'NL → SQL, 89% correct'],
+  bureau:[3, 2, 'Credit bureaus', '4 lending partners'],
+};
+const edges = [['gha','silver'],['silver','gold'],['gold','dash'],['cdc','stage'],['stage','mart'],['mart','agent'],['ext','air'],['air','recon'],['recon','bureau'],['stage','recon']];
+const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; };
+const g = id => document.getElementById(id);
+const paths = edges.map(([a, b]) => {
+  const [ca, ra] = nodes[a], [cb, rb] = nodes[b];
+  const x1 = COLS[ca] + W, y1 = ROWS[ra], x2 = COLS[cb], y2 = ROWS[rb], mx = (x1 + x2) / 2;
+  return el('path', {class: 'edge', d: `M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`}, g('edges'));
+});
+for (const k in nodes) {
+  const [c, r, t, s, hot] = nodes[k];
+  const n = el('g', {class: 'node' + (hot ? ' hot' : '')}, g('nodes'));
+  el('rect', {x: COLS[c], y: ROWS[r] - H / 2, width: W, height: H, rx: 7}, n);
+  el('text', {class: 't', x: COLS[c] + 12, y: ROWS[r] - 3}, n).textContent = t;
+  el('text', {class: 's', x: COLS[c] + 12, y: ROWS[r] + 14}, n).textContent = s;
+}
+const dots = [];
+paths.forEach((p, i) => {
+  const len = p.getTotalLength();
+  for (let j = 0; j < 3; j++) dots.push({p, len, off: (j / 3 + i * 0.13) % 1, speed: 0.00011 + (i % 3) * 0.00003, d: el('circle', {r: 3.2, class: 'dotp' + (i % 4 === 3 ? ' amber' : '')}, g('dots'))});
+});
+const place = t => dots.forEach(o => { const pt = o.p.getPointAtLength(((o.off + t * o.speed) % 1) * o.len); o.d.setAttribute('cx', pt.x); o.d.setAttribute('cy', pt.y); });
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) place(0);
+else { const tick = t => { place(t); requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
 
-  const nav = document.getElementById('nav');
-  const progress = document.getElementById('scrollProgress');
-  window.addEventListener('scroll', () => {
-    const h = document.documentElement;
-    const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-    progress.style.width = scrolled + '%';
-    if (h.scrollTop > 40) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  }, { passive: true });
+const syncThemeLabel = () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  g('theme').setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+};
+syncThemeLabel();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncThemeLabel);
+g('theme').addEventListener('click', () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  syncThemeLabel();
+  try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+});
+
+g('copy').addEventListener('click', e => {
+  (navigator.clipboard?.writeText('aish1804@gmail.com') ?? Promise.reject()).then(() => { e.target.textContent = 'copied ✓'; }).catch(() => {});
+});
+
+fetch('https://huggingface.co/datasets/aishitdua/ghlake/resolve/main/gold/stats.json', {cache: 'no-store'})
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(s => {
+    const set = (id, v) => { if (v != null) g(id).textContent = v; };
+    const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    set('chip', `ghlake · ${s.events_fmt} events`);
+    set('s-events', s.events_fmt);
+    set('s-hours', s.hours_loaded);
+    set('s-newest', String(s.newest_hour).replace(/^\d{4}-(\d\d)-(\d\d) (\d\d:\d\d).*$/, (_, m, d, t) => `${M[m - 1]} ${+d} ${t}`));
+    set('s-status', s.last_status);
+  })
+  .catch(() => {});
 </script>
 </body>
 </html>
