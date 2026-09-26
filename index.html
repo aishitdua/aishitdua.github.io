@@ -257,7 +257,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   <header class="hero">
     <div class="who"><b>Aishit Dua</b><span>Senior Data Engineer at WizCommerce · Bengaluru</span></div>
     <h1>Data that stays <em>correct, cheap,</em> and safe to query.</h1>
-    <p class="lede">Backend and data platform engineer, five years across B2B commerce, fintech lending, and Apple Maps. I build warehouses, pipelines, and query layers on one side, and authorization and platform services on the other.</p>
+    <p class="lede">Backend and data platform engineer, five years across <strong>B2B commerce, fintech lending, and Apple Maps</strong>. I build <strong>warehouses, pipelines, and query layers</strong> on one side, and <strong>authorization and platform services</strong> on the other.</p>
     <div class="cta">
       <a class="btn primary" href="mailto:aish1804@gmail.com">Email me</a>
       <a class="btn" href="https://github.com/aishitdua" target="_blank" rel="noopener">GitHub ↗</a>
@@ -326,10 +326,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
         <div class="role">Senior Data Engineer</div>
         <p class="ctx">B2B commerce platform. KAI, its LLM sales assistant, answers reporting questions by generating BigQuery SQL for 60+ tenants.</p>
         <ul>
-          <li>Designed a BigQuery mart for KAI (18 fact and aggregate tables, partitioned and clustered by tenant), moved the agent onto it, and fixed the SQL pattern behind 40% of 4,172 traced queries. Query cost fell <strong>74%</strong>, bytes read on top prompts fell <strong>81%</strong>, and restricted users' queries bill <strong>183×</strong> fewer bytes.</li>
-          <li>Wrote the job that rebuilds the mart every 2 hours from raw CDC tables: stage every table, check row counts, swap. Reports are <strong>3 hours fresher</strong>. Chose full rebuilds after measuring that MERGE and materialized views could not prune the unpartitioned sources.</li>
-          <li>Took the NL-to-SQL agent from <strong>72% to 89%</strong> correct SQL on 60 real user questions by fixing the schema catalog and row-level access injection, after a LangSmith trace review showed 22% of calls quietly returning zero rows.</li>
-          <li>Deleted ~700 GB of stale data from production Postgres, saving <strong>~$2K/month</strong>, sequenced through CDC so the BigQuery replay cost under $200 one-off.</li>
+          <li><strong>Designed a BigQuery mart for KAI</strong> (18 fact and aggregate tables, partitioned and clustered by tenant), moved the agent onto it, and <strong>fixed the SQL pattern behind 40% of 4,172 traced queries</strong>. <strong>Query cost fell 74%</strong>, bytes read on top prompts fell <strong>81%</strong>, and restricted users' queries bill <strong>183× fewer bytes</strong>.</li>
+          <li><strong>Wrote the job that rebuilds the mart every 2 hours from raw CDC tables</strong>: stage every table, check row counts, swap. <strong>Reports are 3 hours fresher</strong>. Chose <strong>full rebuilds after measuring</strong> that MERGE and materialized views could not prune the unpartitioned sources.</li>
+          <li><strong>Took the NL-to-SQL agent from 72% to 89% correct SQL</strong> on 60 real user questions by <strong>fixing the schema catalog and row-level access injection</strong>, after a <strong>LangSmith trace review</strong> showed 22% of calls quietly returning zero rows.</li>
+          <li><strong>Deleted ~700 GB of stale data from production Postgres</strong>, saving <strong>~$2K/month</strong>, sequenced through CDC so the <strong>BigQuery replay cost under $200</strong> one-off.</li>
         </ul>
       </div>
     </article>
@@ -340,12 +340,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
         <div class="role">Software Development Engineer 2, Platform <span class="badge">promoted Apr 2025</span></div>
         <p class="ctx">Fintech lender in India, Kenya, and Nigeria handling millions of daily transactions.</p>
         <ul>
-          <li>Consolidated 12 permission models across 3 countries into one RBAC service. Staff access requests went from <strong>~3 days to ~4 hours</strong> and access reviews became one process.</li>
-          <li>Shipped New Device Login with device fingerprinting and step-up auth, ramped 10% → 100% across Kenya and Nigeria. Account takeovers fell <strong>~40%</strong> across 1M+ users.</li>
-          <li>Built the Maker-Checker Approval Framework, a shared Rails service with a TypeScript UI, putting dual control on 15+ critical admin actions used by 10+ teams.</li>
-          <li>Moved a 190M-row lookup path from PostgreSQL to Redis with TTL expiry and no downtime. Read latency fell <strong>~80%</strong>.</li>
-          <li>Built the External Data Ingestion Framework on Airflow and dbt, replacing 5 one-off pipelines. A new source is a single YAML file and every load is traceable.</li>
-          <li>Built a reconciliation framework across Postgres, Snowflake, and external reports that catches silent data loss the same day, and moved credit-bureau reporting for 4 lending partners onto it.</li>
+          <li><strong>Consolidated 12 permission models across 3 countries into one RBAC service</strong>. Staff access requests went from <strong>~3 days to ~4 hours</strong> and access reviews became one process.</li>
+          <li><strong>Shipped New Device Login</strong> with device fingerprinting and step-up auth, ramped 10% → 100% across Kenya and Nigeria. <strong>Account takeovers fell ~40%</strong> across 1M+ users.</li>
+          <li><strong>Built the Maker-Checker Approval Framework</strong>, a shared Rails service with a TypeScript UI, putting <strong>dual control on 15+ critical admin actions</strong> used by <strong>10+ teams</strong>.</li>
+          <li><strong>Moved a 190M-row lookup path from PostgreSQL to Redis</strong> with TTL expiry and <strong>no downtime</strong>. <strong>Read latency fell ~80%</strong>.</li>
+          <li><strong>Built the External Data Ingestion Framework on Airflow and dbt</strong>, <strong>replacing 5 one-off pipelines</strong>. A new source is a single YAML file and every load is traceable.</li>
+          <li><strong>Built a reconciliation framework across Postgres, Snowflake, and external reports</strong> that <strong>catches silent data loss the same day</strong>, and moved <strong>credit-bureau reporting for 4 lending partners</strong> onto it.</li>
         </ul>
       </div>
     </article>
@@ -356,9 +356,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
         <div class="role">Software Development Engineer, Maps Data Engineering</div>
         <p class="ctx">Ingestion and data quality for Apple Maps.</p>
         <ul>
-          <li>Built the Scala/Spark data-quality pipeline for Maps, checking <strong>50M+ records a day</strong> against business rules and coordinate validity. Validation time fell ~83%.</li>
-          <li>Automated the ingestion toolchain: manual interventions down ~60%, pipeline SLA up from <strong>91% to 98.5%</strong>.</li>
-          <li>Designed a feature that surfaces the most relevant attributes per record, cutting downstream review effort ~50%.</li>
+          <li><strong>Built the Scala/Spark data-quality pipeline for Maps</strong>, checking <strong>50M+ records a day</strong> against business rules and coordinate validity. <strong>Validation time fell ~83%</strong>.</li>
+          <li><strong>Automated the ingestion toolchain</strong>: <strong>manual interventions down ~60%</strong>, pipeline SLA up from <strong>91% to 98.5%</strong>.</li>
+          <li><strong>Designed a feature that surfaces the most relevant attributes per record</strong>, <strong>cutting downstream review effort ~50%</strong>.</li>
         </ul>
       </div>
     </article>
@@ -372,8 +372,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
         <div class="feature-copy">
           <span class="label live"><span class="pulse"></span>Live · updates every hour</span>
           <h3>ghlake</h3>
-          <p>An hourly lakehouse over <a href="https://www.gharchive.org" target="_blank" rel="noopener"><u>GH Archive</u></a>, the public record of every GitHub event. Idempotent ingest with size and gzip-CRC checks, a DuckDB silver layer with one row per event, and incremental dbt gold models that recompute only the days touched, guarded by grain, not-null, and freshness tests.</p>
-          <p style="margin-top:12px">It runs itself on GitHub Actions and costs nothing. The Hugging Face dataset doubles as the warehouse, and the dashboard runs DuckDB-WASM in your browser against the gold Parquet files.</p>
+          <p>An <strong>hourly lakehouse over <a href="https://www.gharchive.org" target="_blank" rel="noopener"><u>GH Archive</u></a></strong>, the public record of every GitHub event. <strong>Idempotent ingest</strong> with size and gzip-CRC checks, a <strong>DuckDB silver layer</strong> with one row per event, and <strong>incremental dbt gold models</strong> that recompute only the days touched, guarded by <strong>grain, not-null, and freshness tests</strong>.</p>
+          <p style="margin-top:12px">It <strong>runs itself on GitHub Actions and costs nothing</strong>. The <strong>Hugging Face dataset doubles as the warehouse</strong>, and the dashboard runs <strong>DuckDB-WASM in your browser</strong> against the gold Parquet files.</p>
           <div class="tag-row"><span class="tag">Python</span><span class="tag">DuckDB</span><span class="tag">dbt</span><span class="tag">Parquet</span><span class="tag">GitHub Actions</span><span class="tag">DuckDB-WASM</span></div>
           <div class="links">
             <a class="go" href="https://huggingface.co/spaces/aishitdua/ghlake" target="_blank" rel="noopener">Live dashboard ↗</a>
@@ -426,7 +426,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
         <div class="body">
           <span class="label">Live app · authorization</span>
           <h3>RBAC Explorer</h3>
-          <p>A visual designer for role-based access control. Import role hierarchies (YAML) and API endpoints (CSV), see inheritance as a graph grouped by service module, simulate whether a role can reach a path, and export the result as infrastructure-as-code.</p>
+          <p>A <strong>visual designer for role-based access control</strong>. <strong>Import role hierarchies</strong> (YAML) and <strong>API endpoints</strong> (CSV), see inheritance as a graph grouped by service module, <strong>simulate whether a role can reach a path</strong>, and <strong>export the result as infrastructure-as-code</strong>.</p>
           <div class="tag-row"><span class="tag">FastAPI</span><span class="tag">SQLAlchemy async</span><span class="tag">Postgres</span><span class="tag">React</span><span class="tag">Cytoscape.js</span></div>
           <div class="links">
             <a class="go" href="https://rbac-explorer-hkrk.vercel.app/" target="_blank" rel="noopener">Open app ↗</a>
@@ -451,7 +451,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
         <div class="body">
           <span class="label">Open source · developer tooling</span>
           <h3>claude-handoff-bridge</h3>
-          <p>Moves a Claude Code session between two accounts with its transcript, tool results, and subagent work intact. It handles four ways a naive transcript dump fails silently: truncated tool output, subagent transcripts that render to 0 bytes, persisted results left as stubs, and bloated inputs, cut from <strong>206 KB to 137 KB</strong>.</p>
+          <p><strong>Moves a Claude Code session between two accounts</strong> with its <strong>transcript, tool results, and subagent work intact</strong>. It handles <strong>four ways a naive transcript dump fails silently</strong>: truncated tool output, subagent transcripts that render to 0 bytes, persisted results left as stubs, and bloated inputs, cut from <strong>206 KB to 137 KB</strong>.</p>
           <div class="tag-row"><span class="tag">Bash</span><span class="tag">jq</span><span class="tag">bats tests</span><span class="tag">CI</span></div>
           <div class="links">
             <a href="https://github.com/aishitdua/claude-handoff-bridge" target="_blank" rel="noopener">Code &amp; install ↗</a>
