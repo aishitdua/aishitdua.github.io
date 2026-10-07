@@ -84,9 +84,18 @@ nav ul a:hover{color:var(--ink)}
 .hero{padding-block:72px 32px}
 .who{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:28px}
 .who span{font-size:15px;color:var(--muted)}
-.hero h1{font-size:clamp(40px,7vw,88px);line-height:.98;letter-spacing:-.035em;font-weight:750;max-width:14ch;font-variation-settings:"opsz" 96}
+.hero h1{font-size:clamp(56px,12.5vw,168px);line-height:.92;letter-spacing:-.05em;font-weight:780;max-width:none;margin-left:-.04em;font-variation-settings:"opsz" 96}
 .hero h1 em{font-style:normal;color:var(--accent)}
-.headline{font-family:var(--display);font-size:clamp(28px,4vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:650;margin-top:10px;font-variation-settings:"opsz" 96}
+.headline{font-family:var(--display);font-size:clamp(28px,4.4vw,56px);line-height:1.05;letter-spacing:-.03em;font-weight:600;margin-top:18px;font-variation-settings:"opsz" 96}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.hero .who,.hero h1,.headline,.lede,.cta{animation:rise .75s cubic-bezier(.2,.7,.2,1) both}
+.hero h1{animation-delay:.05s}.headline{animation-delay:.18s}.lede{animation-delay:.3s}.cta{animation-delay:.4s}
+.btn.intro-btn{display:none}.btn.intro-btn.on{display:inline-flex}
+.intro-btn i{width:8px;height:8px;border-radius:50%;background:var(--amber)}
+dialog.intro{border:0;padding:0;background:transparent;max-width:min(92vw,880px);width:100%}
+dialog.intro::backdrop{background:rgba(5,8,16,.82)}
+dialog.intro video{display:block;width:100%;border-radius:14px;background:#000}
+dialog.intro form{display:flex;justify-content:flex-end;margin-top:10px}
 .headline em{font-style:normal;color:var(--accent)}
 .lede{font-size:clamp(17px,1.6vw,19px);color:var(--muted);max-width:60ch;margin-top:28px}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;align-items:center}
@@ -181,6 +190,9 @@ section{padding-block:96px 0;scroll-margin-top:60px}
 .proj .links{margin-top:auto;padding-top:24px}
 .proj .viz{background:var(--sunk);border-bottom:1px solid var(--line);height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .proj .viz svg{width:100%;height:100%}
+.proj .viz.photo{padding:22px 0 0 22px;align-items:flex-start;justify-content:flex-start}
+.proj .viz.photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:left top;border-radius:10px 0 0 0;border:1px solid var(--line2);border-right:0;border-bottom:0;transition:transform .4s}
+.proj .viz.photo:hover img{transform:translate(-6px,-6px)}
 .term{width:88%;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font:12px/1.7 var(--mono)}
 .term-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line);color:var(--dim);font-size:11px}
 .term-bar i{width:9px;height:9px;border-radius:50%;background:var(--line2)}
@@ -209,7 +221,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 @media (max-width:980px){.impact{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:900px){
-  .feature-top,.grid2,.contact{grid-template-columns:1fr}
+  .feature-top,.contact{grid-template-columns:1fr}
+  .grid2{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin-inline:-16px;padding:4px 16px 12px;scrollbar-width:none}
+  .grid2::-webkit-scrollbar{display:none}
+  .grid2>.proj{flex:0 0 86%;scroll-snap-align:start}
   .shot{border-left:0;border-top:1px solid var(--line)}
   .stats{grid-template-columns:repeat(2,1fr)}
   .stats>div:nth-child(3){border-left:0}
@@ -268,6 +283,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
       <a class="btn" href="https://github.com/aishitdua" target="_blank" rel="noopener">GitHub ↗</a>
       <a class="btn" href="https://linkedin.com/in/aishit-dua" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="btn" href="https://drive.google.com/file/d/1GZbW9Zo6GYM290cJIUdVIEzUYDqyXvYJ/view?usp=sharing" target="_blank" rel="noopener">Resume ↗</a>
+      <button class="btn intro-btn" id="intro-btn" type="button"><i></i>Watch my 30-second intro</button>
       <button class="copy" id="copy" type="button">aish1804@gmail.com · copy</button>
     </div>
 
@@ -413,25 +429,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
     <div class="grid2">
       <article class="proj">
-        <div class="viz" aria-hidden="true">
-          <svg viewBox="0 0 400 220" fill="none" font-family="IBM Plex Mono,monospace" font-size="11">
-            <g stroke="var(--line2)" stroke-width="1.5">
-              <path d="M200 44 L110 104"/><path d="M200 44 L290 104"/>
-              <path d="M110 104 L58 158"/><path d="M110 104 L152 158"/>
-              <path d="M290 104 L248 158"/><path d="M290 104 L342 158"/>
-            </g>
-            <path d="M200 44 L290 104 L342 158" stroke="var(--accent)" stroke-width="2"/>
-            <g>
-              <rect x="160" y="30" width="80" height="28" rx="6" fill="var(--surface)" stroke="var(--accent)"/><text x="200" y="48" text-anchor="middle" fill="var(--ink)">admin</text>
-              <rect x="66" y="90" width="88" height="28" rx="6" fill="var(--surface)" stroke="var(--line2)"/><text x="110" y="108" text-anchor="middle" fill="var(--muted)">developer</text>
-              <rect x="246" y="90" width="88" height="28" rx="6" fill="var(--surface)" stroke="var(--accent)"/><text x="290" y="108" text-anchor="middle" fill="var(--ink)">payments</text>
-              <rect x="14" y="158" width="88" height="24" rx="5" fill="var(--paper)" stroke="var(--line2)"/><text x="58" y="174" text-anchor="middle" fill="var(--dim)">auth.login</text>
-              <rect x="108" y="158" width="88" height="24" rx="5" fill="var(--paper)" stroke="var(--line2)"/><text x="152" y="174" text-anchor="middle" fill="var(--dim)">GET /users</text>
-              <rect x="204" y="158" width="88" height="24" rx="5" fill="var(--paper)" stroke="var(--line2)"/><text x="248" y="174" text-anchor="middle" fill="var(--dim)">GET /ledger</text>
-              <rect x="298" y="158" width="88" height="24" rx="5" fill="var(--surface)" stroke="var(--accent)"/><text x="342" y="174" text-anchor="middle" fill="var(--accent)">POST /pay ✓</text>
-            </g>
-          </svg>
-        </div>
+        <a class="viz photo" href="https://rbac-explorer-hkrk.vercel.app/" target="_blank" rel="noopener" aria-label="Open RBAC Explorer">
+          <img src="rbac.png" alt="RBAC Explorer simulator: the payments_dev role tested against every API path, with allowed and denied rows">
+        </a>
         <div class="body">
           <span class="label">Live app · authorization</span>
           <h3>RBAC Explorer</h3>
@@ -494,6 +494,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     </div>
   </section>
 </main>
+<dialog class="intro" id="intro"><video id="intro-video" controls playsinline preload="none"></video><form method="dialog"><button class="btn" type="submit">Close</button></form></dialog>
 
 <footer><div class="wrap"><span>© 2026 Aishit Dua · Bengaluru</span><span>Plain HTML. Live numbers come from ghlake.</span></div></footer>
 
@@ -552,6 +553,9 @@ g('theme').addEventListener('click', () => {
   syncThemeLabel();
   try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
 });
+
+const INTRO_VIDEO = false; // flip to true once intro.mp4 is in the repo
+if (INTRO_VIDEO) { const b = g('intro-btn'), d = g('intro'), v = g('intro-video'); b.classList.add('on'); b.addEventListener('click', () => { v.src = 'intro.mp4'; d.showModal(); v.play().catch(() => {}); }); d.addEventListener('close', () => { v.pause(); v.removeAttribute('src'); v.load(); }); }
 
 g('copy').addEventListener('click', e => {
   (navigator.clipboard?.writeText('aish1804@gmail.com') ?? Promise.reject()).then(() => { e.target.textContent = 'copied ✓'; }).catch(() => {});
