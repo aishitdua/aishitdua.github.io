@@ -277,7 +277,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     <div class="who"><span>Senior Data Engineer at WizCommerce · Bengaluru</span></div>
     <h1>Aishit Dua</h1>
     <p class="headline">Data <em>&amp;</em> backend engineer.</p>
-    <p class="lede">Backend and data platform engineer, five years across B2B commerce, fintech lending, and Apple Maps. I build warehouses, pipelines, and query layers on one side, and authorization and platform services on the other.</p>
+    <p class="lede">Backend and data platform engineer, five years across B2B commerce, fintech lending, and Apple Maps. I build warehouses, pipelines, and the semantic layer LLM agents query on one side, and authorization and platform services on the other.</p>
     <div class="cta">
       <a class="btn primary" href="mailto:aish1804@gmail.com">Email me</a>
       <a class="btn" href="https://github.com/aishitdua" target="_blank" rel="noopener">GitHub ↗</a>
@@ -290,7 +290,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     <figure class="lineage" aria-label="Lineage of pipelines I have built, from sources to the people who query them">
       <figcaption class="lineage-head"><span class="cap">Lineage · pipelines I've built</span><span class="cap">each dot is a batch of rows</span></figcaption>
       <div class="lineage-scroll">
-        <svg id="dag" viewBox="0 0 1000 300" role="img" aria-label="Three pipelines: GH Archive to ghlake dashboard, Postgres CDC to the KAI warehouse and LLM agent, partner sources through Airflow and dbt to reconciled credit-bureau reports">
+        <svg id="dag" viewBox="0 0 1000 300" role="img" aria-label="Three pipelines: GH Archive to ghlake dashboard, Postgres CDC to the KAI warehouse and the semantic layer the LLM agent queries, partner sources through Airflow and dbt to reconciled credit-bureau reports">
           <text class="col" x="20" y="22">SOURCE</text>
           <text class="col" x="280" y="22">LAND · STAGE</text>
           <text class="col" x="540" y="22">MODEL</text>
@@ -350,7 +350,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
         <ul>
           <li>Designed the BigQuery reporting warehouse for KAI (18 fact and aggregate tables, partitioned and clustered by tenant), moved the agent onto it, and fixed the SQL pattern behind 40% of 4,172 traced queries. <strong>Query cost fell by 74%, data read per query by 81%, and restricted users' queries bill 183× fewer bytes.</strong></li>
           <li>Wrote the job that rebuilds the warehouse every 2 hours from raw CDC tables: stage every table, check row counts, swap. <strong>Reports are 3 hours fresher.</strong> Chose full rebuilds after measuring that MERGE and materialized views could not prune the unpartitioned sources.</li>
-          <li>Took the NL-to-SQL agent <strong>from 72% to 92% correct SQL</strong> on 60 real user questions by fixing the schema catalog and row-level access injection, after a LangSmith trace review showed 22% of calls quietly returning zero rows.</li>
+          <li>Built the semantic layer the NL-to-SQL agent reads from (table and column descriptions, metric definitions, row-level access injection), taking it <strong>from 72% to 92% correct SQL</strong> on 60 real user questions after a LangSmith trace review showed 22% of calls quietly returning zero rows.</li>
           <li>Deleted ~700 GB of stale data from production Postgres, <strong>saving ~$2K/month</strong>, sequenced through CDC so the BigQuery replay cost under $200 one-off.</li>
         </ul>
       </div>
@@ -512,10 +512,10 @@ const nodes = {
   wh:    [2, 1, 'KAI warehouse', '18 tables, tenant-clustered', true],
   recon: [2, 2, 'Reconciliation', 'PG ↔ Snowflake ↔ reports'],
   dash:  [3, 0, 'DuckDB-WASM', 'dashboard in the browser'],
-  agent: [3, 1, 'LLM agent', 'NL → SQL, 92% correct'],
+  agent: [3, 1, 'Semantic layer', 'LLM agent, 92% correct SQL', true],
   bureau:[3, 2, 'Credit bureaus', '4 lending partners'],
 };
-const edges = [['gha','silver'],['silver','gold'],['gold','dash'],['cdc','stage'],['stage','wh'],['wh','agent'],['ext','air'],['air','recon'],['recon','bureau'],['stage','recon']];
+const edges = [['gha','silver'],['silver','gold'],['gold','dash'],['cdc','stage'],['stage','wh'],['wh','agent'],['ext','air'],['air','recon'],['recon','bureau']];
 const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; };
 const g = id => document.getElementById(id);
 const paths = edges.map(([a, b]) => {
