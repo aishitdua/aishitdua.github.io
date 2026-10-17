@@ -277,7 +277,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     <div class="who"><span>Senior Data Engineer at WizCommerce · Bengaluru</span></div>
     <h1>Aishit Dua</h1>
     <p class="headline">Data <em>&amp;</em> backend engineer.</p>
-    <p class="lede">Backend and data platform engineer, five years across B2B commerce, fintech lending, and Apple Maps. I build warehouses, pipelines, and the semantic layer LLM agents query on one side, and authorization and platform services on the other.</p>
+    <p class="lede">Backend and data platform engineer, 5+ years across B2B commerce, fintech lending, and Apple Maps. I build warehouses, pipelines, and the semantic layer LLM agents query on one side, and authorization and platform services on the other.</p>
     <div class="cta">
       <a class="btn primary" href="mailto:aish1804@gmail.com">Email me</a>
       <a class="btn" href="https://github.com/aishitdua" target="_blank" rel="noopener">GitHub ↗</a>
@@ -290,7 +290,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     <figure class="lineage" aria-label="Lineage of pipelines I have built, from sources to the people who query them">
       <figcaption class="lineage-head"><span class="cap">Lineage · pipelines I've built</span><span class="cap">each dot is a batch of rows</span></figcaption>
       <div class="lineage-scroll">
-        <svg id="dag" viewBox="0 0 1000 300" role="img" aria-label="Three pipelines: GH Archive to ghlake dashboard, Postgres CDC to the KAI warehouse and the semantic layer the LLM agent queries, partner sources through Airflow and dbt to reconciled credit-bureau reports">
+        <svg id="dag" viewBox="0 0 1000 300" role="img" aria-label="Three pipelines: GH Archive to ghlake dashboard, Postgres CDC to the reporting layer and the semantic layer the text-to-SQL agent queries, partner sources through Airflow and dbt to reconciled credit-bureau reports">
           <text class="col" x="20" y="22">SOURCE</text>
           <text class="col" x="280" y="22">LAND · STAGE</text>
           <text class="col" x="540" y="22">MODEL</text>
@@ -305,13 +305,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     <div class="impact">
       <div class="bar-card">
         <div class="big">−74%</div>
-        <div class="what">BigQuery cost for KAI, an LLM reporting agent over 150+ tenants</div>
+        <div class="what">BigQuery cost for an LLM reporting agent serving 150+ tenants</div>
         <div class="bars"><div><span>before</span><i style="width:100%"></i><span>100</span></div><div class="after"><span>after</span><i style="width:26%"></i><span>26</span></div></div>
       </div>
       <div class="bar-card">
-        <div class="big">92%</div>
-        <div class="what">Correct SQL from the NL-to-SQL agent on 60 real user questions</div>
-        <div class="bars"><div><span>before</span><i style="width:72%"></i><span>72%</span></div><div class="after"><span>after</span><i style="width:92%"></i><span>92%</span></div></div>
+        <div class="big">95%</div>
+        <div class="what">Correct answers from the text-to-SQL agent on production questions</div>
+        <div class="bars"><div><span>before</span><i style="width:72%"></i><span>72%</span></div><div class="after"><span>after</span><i style="width:95%"></i><span>95%</span></div></div>
       </div>
       <div class="bar-card">
         <div class="big">~4 h</div>
@@ -327,7 +327,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   </header>
 
   <section id="work">
-    <div class="sec-head"><h2>Experience</h2><span class="cap">3 roles · 5 years</span></div>
+    <div class="sec-head"><h2>Experience</h2><span class="cap">3 roles · 5+ years</span></div>
 
     <div class="timeline" aria-label="Career timeline, May 2021 to today">
       <div class="track">
@@ -346,11 +346,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
       <div class="when"><h3>WizCommerce</h3><p>Sep 2026 – present<br>Bengaluru</p></div>
       <div>
         <div class="role">Senior Data Engineer</div>
-        <p class="ctx">B2B commerce platform. KAI, its LLM sales assistant, answers reporting questions by generating BigQuery SQL for 150+ tenants.</p>
+        <p class="ctx">B2B commerce platform. I own the AI sales assistant's reporting agent end to end: the text-to-SQL service, its row-level access control, and the BigQuery reporting layer beneath it, serving 150+ tenants.</p>
         <ul>
-          <li>Designed the BigQuery reporting warehouse for KAI (18 fact and aggregate tables, partitioned and clustered by tenant), moved the agent onto it, and fixed the SQL pattern behind 40% of 4,172 traced queries. <strong>Query cost fell by 74%, data read per query by 81%, and restricted users' queries bill 183× fewer bytes.</strong></li>
-          <li>Wrote the job that rebuilds the warehouse every 2 hours from raw CDC tables: stage every table, check row counts, swap. <strong>Reports are 3 hours fresher.</strong> Chose full rebuilds after measuring that MERGE and materialized views could not prune the unpartitioned sources.</li>
-          <li>Built the semantic layer the NL-to-SQL agent reads from (table and column descriptions, metric definitions, row-level access injection), taking it <strong>from 72% to 92% correct SQL</strong> on 60 real user questions after a LangSmith trace review showed 22% of calls quietly returning zero rows.</li>
+          <li>Designed and built the BigQuery reporting layer (18 tables, partitioned and clustered by tenant) and moved the agent onto it. <strong>Query cost fell by 74% and data read per query by 81%.</strong></li>
+          <li>Found one SQL pattern in 40% of 4,172 traced queries and fixed it in the server step that rewrites the agent's SQL before it runs. <strong>Restricted users' queries now bill 183× fewer bytes.</strong></li>
+          <li>Made the reporting layer self-maintaining: a 2-hourly refresh straight from the raw change-data tables that stages every table, checks row counts, and swaps, <strong>removing a 3-hour upstream lag</strong>. Chose full rebuilds after measuring that MERGE and materialized views could not prune the unpartitioned sources.</li>
+          <li>Built the semantic layer the text-to-SQL agent reads from (table and column descriptions, metric definitions, row-level access injection), taking it <strong>from 72% to 95% correct answers on production questions</strong> after a LangSmith trace review showed 22% of calls quietly returning zero rows.</li>
+          <li>Led the warehouse cost program, <strong>cutting the monthly BigQuery bill by 37% with no change to any output</strong>: set the standard that large tables refresh only what changed, moved heavy JSON lookups into small lookup tables, and laid out dashboard tables the way they are read.</li>
+          <li>Established the team's process for repartitioning live change-data tables in BigQuery <strong>with zero downtime, no Kafka pipeline change, and no lost rows</strong>, and led its rollout across the largest production tables.</li>
           <li>Deleted ~700 GB of stale data from production Postgres, <strong>saving ~$2K/month</strong>, sequenced through CDC so the BigQuery replay cost under $200 one-off.</li>
         </ul>
       </div>
@@ -359,17 +362,17 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     <article class="job">
       <div class="when"><h3>Branch International</h3><p>Aug 2023 – Sep 2026<br>Bengaluru</p></div>
       <div>
-        <div class="role">Software Development Engineer 2, Platform <span class="badge">promoted Apr 2025</span></div>
+        <div class="role">Software Development Engineer 2, Platform <span class="badge">SDE to SDE 2, Apr 2025</span></div>
         <p class="ctx">Fintech lender in India, Kenya, and Nigeria handling millions of daily transactions.</p>
         <ul>
           <li>Consolidated 12 permission models across 3 countries into one RBAC service. <strong>Staff access requests went from ~3 days to ~4 hours</strong> and access reviews became one process.</li>
           <li>Unified credit-bureau (CIC) reporting for 4 lending partners into one config-driven framework: infrastructure as code, isolated runs, no more corrupted concurrent reports. <strong>Partner onboarding went from ~3 days to ~2 hours of engineering time.</strong></li>
           <li>Led 2 engineers to deliver the Confidential Data Access Framework: <strong>41 PII fields masked with per-field access tiers and audit-logged reveals</strong>, replacing ad-hoc database access for support and ops teams.</li>
           <li>Built a reconciliation framework over 195 tables that compares row counts and column samples across Postgres, Snowflake, and external reports. <strong>Caught 8 data-loss incidents in its first 2 weeks.</strong></li>
-          <li>Shipped New Device Login with device fingerprinting and step-up auth, ramped 10% to 100% across Kenya and Nigeria. <strong>Account takeovers fell by ~40% across 1M+ users.</strong></li>
           <li>Built the External Data Ingestion Framework on Airflow and dbt, <strong>replacing 5 one-off pipelines</strong>. A new source is a single YAML file and every load is traceable.</li>
-          <li>Built the Maker-Checker Approval Framework, a shared Rails service with a TypeScript approval UI, <strong>putting dual control on 15+ critical admin actions used by 10+ engineering teams</strong>.</li>
+          <li>Shipped New Device Login with device fingerprinting and step-up auth, ramped 10% to 100% across Kenya and Nigeria. <strong>Account takeovers fell by ~40% across 1M+ users.</strong></li>
           <li>Moved a 190M-row lookup path from PostgreSQL to Redis with TTL expiry and no downtime. <strong>Read latency fell by ~80%.</strong></li>
+          <li>Built the Maker-Checker Approval Framework, a shared Rails service with a TypeScript approval UI, <strong>putting dual control on 15+ critical admin actions used by 10+ engineering teams</strong>.</li>
         </ul>
       </div>
     </article>
@@ -473,9 +476,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   <section id="toolkit">
     <div class="sec-head"><h2>Toolkit</h2><span class="cap">what I reach for</span></div>
     <div class="skills">
-      <div><h4>Data</h4><p>BigQuery, Snowflake, DuckDB, Airflow, dbt, Spark, PostgreSQL, Redis, Kafka, change data capture, warehouse modelling, query and cost optimisation</p></div>
-      <div><h4>Backend</h4><p>Rails, FastAPI, REST and MCP APIs, AWS (S3, RDS, IAM, KMS), GCP, Docker, CI/CD, authorization and RBAC, incident response</p></div>
-      <div><h4>AI systems</h4><p>LLM agents (LangGraph, LangChain, MCP tool servers), natural-language-to-SQL, RAG over schema catalogs (Qdrant, OpenAI embeddings), LangSmith tracing and evals, LiteLLM</p></div>
+      <div><h4>Data</h4><p>BigQuery, Snowflake, DuckDB, Airflow, dbt, Spark, PostgreSQL, Redis, Kafka, change data capture, warehouse modeling, query and cost optimization</p></div>
+      <div><h4>Backend</h4><p>Rails, FastAPI, REST and MCP APIs, AWS (S3, RDS, IAM), GCP, Docker, CI/CD, authorization and RBAC</p></div>
+      <div><h4>AI systems</h4><p>LLM agents (LangGraph, LangChain, MCP), text-to-SQL, semantic layer, prompt and catalog design, LangSmith tracing and evals</p></div>
       <div><h4>Languages</h4><p>Python, SQL, Ruby, Scala, TypeScript</p></div>
     </div>
     <div class="edu"><b>IIIT Nagpur</b><span>B.Tech, Computer Science · 2021 · CGPA 8.21 / 10</span></div>
@@ -509,10 +512,10 @@ const nodes = {
   stage: [1, 1, 'stage + check', 'row counts, then swap'],
   air:   [1, 2, 'Airflow + dbt', 'traceable loads'],
   gold:  [2, 0, 'dbt gold', 'incremental, tested', true],
-  wh:    [2, 1, 'KAI warehouse', '18 tables, tenant-clustered', true],
+  wh:    [2, 1, 'Reporting layer', '18 tables, tenant-clustered', true],
   recon: [2, 2, 'Reconciliation', 'PG ↔ Snowflake ↔ reports'],
   dash:  [3, 0, 'DuckDB-WASM', 'dashboard in the browser'],
-  agent: [3, 1, 'Semantic layer', 'LLM agent, 92% correct SQL', true],
+  agent: [3, 1, 'Semantic layer', 'text-to-SQL, 95% correct', true],
   bureau:[3, 2, 'Credit bureaus', '4 lending partners'],
 };
 const edges = [['gha','silver'],['silver','gold'],['gold','dash'],['cdc','stage'],['stage','wh'],['wh','agent'],['ext','air'],['air','recon'],['recon','bureau']];
